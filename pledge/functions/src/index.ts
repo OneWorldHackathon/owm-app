@@ -3,6 +3,7 @@ import { onPledgeFormCreate } from './onPledgeFormCreate'
 import * as functions from 'firebase-functions'
 import { onAuthUserCreate } from './onAuthUserCreate'
 import { computeTotalDistancePledged } from './computeTotalDistancePledged'
+import { computeTotalParticipants } from './computeTotalParticipants';
 
 admin.initializeApp()
 const settings = { timestampsInSnapshots: true }
@@ -34,4 +35,6 @@ exports.userFunctions = {
 exports.viewFunctions = {
   onPledgeCreate: functions.firestore.document('pledge/{id}')
   .onCreate(computeTotalDistancePledged),
+  onUserCreate: functions.firestore.document('users/{id}')
+  .onCreate(computeTotalParticipants),
 }
