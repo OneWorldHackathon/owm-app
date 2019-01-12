@@ -45,6 +45,12 @@ export async function computeTotalParticipants(
     const eventDoc = await tx.get(eventsRef)
 
     if (!eventDoc.exists) {
+
+      let country: string = ''
+      if (user !== undefined && user.location !== undefined) {
+        country = ISO3166.lookup(user.location.countryCode).name
+      }
+
       // Then we have not processed this event before.
       // We will record the fact that we processed this event for idempotency.
       await tx.create(eventsRef, { id: _event.eventId })
@@ -56,16 +62,16 @@ export async function computeTotalParticipants(
       // Update the aggregates.
       aggregates.participants += 1
 
-      const country: string = ISO3166.lookup(user.location.countryCode).name
+      if (country !== '') {
+        if (aggregates.countries.indexOf(country) === -1) {
+          aggregates.countries.push(country)
+        }
 
-      if (aggregates.countries.indexOf(country) === -1) {
-        aggregates.countries.push(country)
-      }
-
-      if (!(country in aggregates.participantsByCountry)) {
-        aggregates.participantsByCountry[country] = 1
-      } else {
-        aggregates.participantsByCountry += 1
+        if (!(country in aggregates.participantsByCountry)) {
+          aggregates.participantsByCountry[country] = 1
+        } else {
+          aggregates.participantsByCountry += 1
+        }
       }
 
       // Persist the aggregates.

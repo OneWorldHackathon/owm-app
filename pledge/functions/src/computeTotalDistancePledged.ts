@@ -69,6 +69,11 @@ export async function computeTotalDistancePledged(
       aggregates.distanceMiles += pledge.distanceMiles
 
       if (country !== '') {
+
+        if (aggregates.countries.indexOf(country) === -1) {
+          aggregates.countries.push(country)
+        }
+
         if (!(country in aggregates.distanceByCountry)) {
           aggregates.distanceByCountry[country] = {
             distanceKm: pledge.distanceKm,

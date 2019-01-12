@@ -53,8 +53,8 @@ exports.userFunctions = {
  *  - People
  */
 exports.viewFunctions = {
-  onPledgeCreate: functions.firestore.document('pledge/{id}')
+  computeTotalDistancePledged: functions.firestore.document('pledge/{id}')
     .onCreate(computeTotalDistancePledged),
-  onUserCreate: functions.firestore.document('users/{id}')
+  computeTotalParticipants: functions.firestore.document('users/{id}')
     .onCreate(computeTotalParticipants),
 }
