@@ -13,7 +13,7 @@ export interface FirestoreEntity {
 }
 
 export abstract class AbstractFirestoreRepository<T extends FirestoreEntity>
-implements Repository<T> {
+  implements Repository<T> {
 
   private readonly _db: Firestore
   private readonly col: CollectionReference
