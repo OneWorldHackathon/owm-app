@@ -16,16 +16,14 @@ export abstract class AbstractFirestoreRepository<T extends FirestoreEntity>
   implements Repository<T> {
 
   private readonly _db: Firestore
-  private readonly col: CollectionReference
+  protected readonly col: CollectionReference
 
-  constructor(_entityName: string, _db?: Firestore, _colPrefix: string = '') {
+  constructor(entityName: string, _db?: Firestore, _colPrefix: string = '') {
     this._db = _db !== undefined ? _db : firebaseAdmin.firestore()
-    this.col = this._db.collection(_colPrefix + _entityName)
+    this.col = this._db.collection(_colPrefix + entityName)
   }
 
-  find(_id: string): Promise<T | undefined> {
-    throw new Error('Method not implemented.')
-  }
+  abstract find(id: string): Promise<T | undefined>
 
   async create(entity: T): Promise<T> {
     const doc: DocumentData = entity.toFirestore()

@@ -12,6 +12,18 @@ export type FirestoreValue =
 export interface FirestoreArray extends Array<FirestoreValue> { }
 
 export const UNDEFINED_STRING = '******$$$$$$$$$_____UNDEFINED_____$$$$$$$********'
+
+export function fromFirestore(data: DocumentData): DocumentData {
+  Object.keys(data)
+    .forEach((key) => {
+      if (data[key] instanceof Timestamp) data[key] = (<Timestamp>data[key]).toDate()
+      if (typeof data[key] === 'object') {
+        data[key] = fromFirestore(data[key])
+      }
+    })
+  return data
+}
+
 export const toFirestore = (v: object): DocumentData => {
   return parseFirestoreValue(v) as DocumentData
 }
