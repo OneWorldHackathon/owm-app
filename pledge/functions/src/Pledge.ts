@@ -6,26 +6,30 @@ import { ValidationException } from './ValidationException'
 /* Represents the persistence and transfer shape of a Pledge Entity */
 export type PledgeData = {
   readonly id: string,
+  readonly distanceMetres: number,
 }
 export class Pledge {
 
   @IsUUID('4')
   readonly id: string
 
-  private constructor(id: string) {
+  readonly distanceMetres: number
+
+  private constructor(id: string, distanceMetres: number) {
     this.id = id
+    this.distanceMetres = distanceMetres
     const valid = this.validate()
     if (valid.length > 0) {
       throw new ValidationException(valid)
     }
   }
 
-  static newInstance() {
-    return new Pledge(uuid())
+  static newInstance(distanceMetres: number) {
+    return new Pledge(uuid(), distanceMetres)
   }
 
   static fromJSON(o: PledgeData) {
-    return new Pledge(o.id)
+    return this.newInstance(o.distanceMetres)
   }
 
   validate(): ValidationError[] {

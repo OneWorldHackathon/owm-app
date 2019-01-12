@@ -9,8 +9,15 @@ import {
 } from './Pledge'
 describe('Test Pledge entity', () => {
 
+  const VALID_DISTANCE_KM = 20
+
   it('test uuid must be a valid uuid', async () => {
-    const pledge = Pledge.newInstance()
+    const pledge = Pledge.newInstance(VALID_DISTANCE_KM)
     expect(pledge.validate.length).to.be.eq(0)
+  }),
+  it('test distance is set properly', async () => {
+    const pledge = Pledge.newInstance(VALID_DISTANCE_KM)
+    expect(pledge.distanceMetres).to.be.eq(VALID_DISTANCE_KM)
   })
+
 })
