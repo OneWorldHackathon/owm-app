@@ -5,24 +5,24 @@ import { PublicAggregatesView } from './PublicAggregatesView'
 import { User } from './User'
 import { ISO3166 } from './ISO3166'
 
-export async function computeTotalParticipants(
+export async function computeTotalCountries(
   _snap: DocumentSnapshot, _event: EventContext,
 ): Promise<void> {
 
-  console.log('computeTotalParticipants function fired')
+  console.log('computeTotalCountries function fired')
   const data = _snap.data()
   if (data === undefined) {
     console.error('User not found')
     return
   }
 
-  const user: User = data as User
-
   const db = firebaseAdmin.firestore()
   const publicStatsRef = db.collection('publicStats')
                       .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
 
   const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
+
+  const user = data as User
 
   return await db.runTransaction(async (tx) => {
     let statsDoc = await tx.get(publicStatsRef)
@@ -54,18 +54,10 @@ export async function computeTotalParticipants(
                 await statsDoc.data() as PublicAggregatesView
 
       // Update the aggregates.
-      aggregates.participants += 1
-
-      const country: string = ISO3166.lookup(user.location.countryCode).name
+      const country = ISO3166.lookup(user.location.countryCode).name
 
       if (aggregates.countries.indexOf(country) === -1) {
         aggregates.countries.push(country)
-      }
-
-      if (!(country in aggregates.participantsByCountry)) {
-        aggregates.participantsByCountry[country] = 1
-      } else {
-        aggregates.participantsByCountry += 1
       }
 
       // Persist the aggregates.

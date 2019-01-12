@@ -1,5 +1,19 @@
+export type ISO3166Data = {name: string, alpha2: string, countryCode: string}
 export class ISO3166 {
-  static readonly CODES: {name: string, alpha2: string, countryCode: string}[] =
+
+  static map: any = undefined
+
+  static lookup(code: string) : ISO3166Data {
+    if (this.map === undefined) {
+      // Build lookup table
+      this.CODES.forEach((data) => {
+        this.map[data.countryCode] = data
+      })
+    }
+
+    return this.map[code]
+  }
+  static readonly CODES: ISO3166Data[] =
     [
       {
         name: 'Afghanistan',
@@ -272,7 +286,7 @@ export class ISO3166 {
         countryCode: '188',
       },
       {
-        name: 'Côte d'Ivoire',
+        name: 'Côte d\'Ivoire',
         alpha2: 'CI',
         countryCode: '384',
       },
@@ -592,7 +606,7 @@ export class ISO3166 {
         countryCode: '296',
       },
       {
-        name: 'Korea (Democratic People's Republic of)',
+        name: 'Korea (Democratic People\'s Republic of)',
         alpha2: 'KP',
         countryCode: '408',
       },

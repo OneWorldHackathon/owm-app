@@ -33,6 +33,8 @@ export async function computeTotalDistancePledged(
         distanceKm: 0,
         distanceMiles: 0,
         participants: 0,
+        distanceByCountry: {},
+        participantsByCountry: {},
       }
       await tx.create(publicStatsRef, defaultPublicStats)
     }
