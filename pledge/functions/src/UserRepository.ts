@@ -1,4 +1,4 @@
-import { User } from './User'
+import { User, UserData } from './User'
 import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore'
 import * as firebaseAdmin from 'firebase-admin'
 
@@ -18,8 +18,9 @@ export class CloudFirestoreUserRepository implements UserRepository {
     this._db = _db !== undefined ? _db : firebaseAdmin.firestore()
     this.col = this._db.collection(_colPrefix + 'user')
   }
-  find(_id: string): Promise<User | undefined> {
-    throw new Error('Method not implemented.')
+  async find(id: string): Promise<User | undefined> {
+    const doc: DocumentData = await this.col.doc(id).get()
+    return User.fromJSON(doc as UserData)
   }
 
   async create(user: User): Promise<User> {
