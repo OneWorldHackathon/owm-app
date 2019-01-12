@@ -1,0 +1,56 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "declaration": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowUnusedLabels": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    // "noImplicitAny": true,  //todo enable
+    "suppressImplicitAnyIndexErrors": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+    ],
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "paths": {
+      "@shared/*": [
+        "app/shared/*",
+        "app/dashboard/shared/*"
+      ],
+      "@model/*": [
+        "app/shared/models/*",
+      ],
+      "@components/*": [
+        "app/components/*",
+      ],
+      "@pages/*": [
+        "app/pages/*",
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@test/*": [
+        "../test/*"
+      ]
+    },
+  }
+}
