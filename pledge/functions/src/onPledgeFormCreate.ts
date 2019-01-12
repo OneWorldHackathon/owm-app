@@ -35,6 +35,7 @@ export async function createPledge(pledgeForm: PledgeForm, userRepo: Repository<
   user.lastName = pledgeForm.lastName
   user.firstName = pledgeForm.firstName
   user.yearOfBirth = Number(pledgeForm.yearOfBirth)
+  user.location = pledgeForm.location
   const pledge: Pledge = Pledge.newInstance(pledgeForm.pledge)
   console.log(pledge)
   await repo.create(pledge)

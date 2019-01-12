@@ -6,6 +6,7 @@ import { DocumentData } from '@google-cloud/firestore'
 import { toFirestore, removeUndefinedProperties } from './utils'
 
 import { EntityBase } from './EntityBase'
+import { Location } from './PledgeForm'
 /* Represents the persistence and transfer shape of a User Entity */
 export type UserData = {
   readonly id: string,
@@ -16,6 +17,7 @@ export type UserData = {
   readonly lastName: string | undefined,
   readonly firstName: string | undefined,
   readonly yearOfBirth: number | undefined,
+  readonly location: Location | undefined,
 }
 export class User extends EntityBase {
 
@@ -45,6 +47,9 @@ export class User extends EntityBase {
   @IsInt()
   _yearOfBirth: number | undefined
 
+  @IsOptional()
+  _location: Location | undefined
+
   private constructor(_id: string, createdAt: Date, email: string,
                       displayName: string, profileURL?: string) {
 
@@ -55,11 +60,12 @@ export class User extends EntityBase {
     this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
+      console.log(valid)
       throw new ValidationException(valid)
     }
   }
 
-  static newInstance(id: string, email: string, displayName: string, profileURL: string) {
+  static newInstance(id: string, email: string, displayName: string, profileURL?: string) {
     return new User(id, new Date, email, displayName, profileURL)
   }
 
@@ -75,6 +81,10 @@ export class User extends EntityBase {
     this.yearOfBirth = val
   }
 
+  set location(val: Location) {
+    this.location = val
+  }
+
   toUserData(): UserData {
     const o: UserData = {
       id: this.id(),
@@ -85,6 +95,7 @@ export class User extends EntityBase {
       lastName: this._lastName,
       firstName: this._firstName,
       yearOfBirth: this._yearOfBirth,
+      location: this._location,
     }
     return removeUndefinedProperties(o) as UserData
   }
