@@ -3,4 +3,8 @@ pledge/functions/node_modules/
 .vscode/
 =======
 /pledge/functions/node_modules
+<<<<<<< HEAD
 >>>>>>> da2549b5c90f954437e2ae894990b68728ec8e13
+=======
+.idea
+>>>>>>> d1ecab53b349ac31dfad78f4f84afecda8009735
