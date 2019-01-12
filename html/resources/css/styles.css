@@ -50,46 +50,68 @@ div, header, footer, section { position: relative }
 
 /* buttons */
 .btn { display:inline-block; height: 40px; background: #FB9F00; line-height: 40px; padding: 0 26px 0; border-radius: 20px; color: #133248; font-size: 20px; font-weight: 600; color: #FFF }
-.btn-green { background: #2F843D }
+.btn-green { background: #71BB44 }
+.btn-dark-green { background: #2F843D }
+
+/* content block */
+.block { margin-top: 60px }
+.sub-block { padding-bottom: 60px }
 
 /* standard content */
-.std-content .block { padding-bottom: 80px }
-.std-content h2 { font-size: 32px; font-weight: 700; color: #7ED127; margin-bottom: 26px }
+.std-content h2 { font-size: 32px; font-weight: 700; color: #009400; margin-bottom: 26px }
 .std-content p { margin: 26px 0 26px; line-height: 28px }
 
 /* standard form */
 .std-form .form-group { margin-bottom: 34px }
 .std-form label { font-size: 14px; display: block; margin-bottom: 9px }
-.std-form input[type="text"] { display: block; border: 1px solid #7ED127; border-radius: 8px; font-size: 20px; font-weight: 600; color: #4A4A4A; height: 48px; line-height: 48px; padding: 0 15px }
-
-/* boxes */
-.box { border: 2px solid #4C6476; border-radius: 16px}
+.std-form input[type="text"] { display: block; border: 1px solid #B9DEA3; border-radius: 8px; font-size: 20px; font-weight: 600; color: #4A4A4A; height: 48px; line-height: 48px; padding: 0 15px }
 
 /* body */
-body { background: url("../img/bg-body.svg")right top no-repeat; color: #535353; font-family: 'Open Sans', sans-serif; font-size: 20px; padding-bottom: 72px }
+body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #535353; font-family: 'Open Sans', sans-serif; font-size: 20px; padding-bottom: 72px }
 
 /* std wrap */
 .wrap-std { max-width: 936px; margin: 0 auto; padding: 0 14px }
 
-/* navigation */
-#header { height: 40px; padding:14px; }
+/* header */
+#header { height: 40px; padding:14px }
 #header .wrap-logo { max-width: 1172px; margin: 0 auto }
-#header .logo-one-world-strong { display: block; position: absolute; top: 22px }
+#header .logo-one-world-strong { display: block; position: absolute; top: 6px }
 #header nav { position: absolute; right:0; top: 30px }
-#header .donate { margin:0 14px 0 30px; float: right }
-#header ul { float: right }
-#header li { float: left; padding-left: 30px; height: 40px; line-height: 40px }
-#header li a { opacity: 0.7 }
+#header .donate { margin:0 30px 0 30px; float: right }
+#header .desktop-menu { float: right }
+#header .desktop-menu li { float: left; padding-left: 30px; height: 40px; line-height: 40px }
+#header .desktop-menu li a { opacity: 0.7 }
+#header .desktop-menu li a.active { font-weight: 700; color: #368340; text-transform: uppercase; text-decoration: underline; opacity: 1 }
+#header .mobile-menu { display: none; }
+#header .mobile-open { display: none; position: absolute; right: 30px; padding: 12px 4px; top: 5px; cursor: pointer; -webkit-transform: translateY(0); -moz-transform: translateY(0); -ms-transform: translateY(0); -o-transform: translateY(0); transform: translateY(0); }
+#header .mobile-open .mobile-icon { width: 36px; height: 4px; background: #368340; position: relative; display: block; }
+#header .mobile-open .mobile-icon:before,
+#header .mobile-open .mobile-icon:after { content: ''; position: absolute; left: 0; right: 0; height: 4px; background: #368340; }
+#header .mobile-open .mobile-icon:before { top: -13px; }
+#header .mobile-open .mobile-icon:after { bottom: -13px; }
+@media only screen and (max-width: 1060px) {
+    #header .donate { margin-right: 100px }
+    #header .desktop-menu { display: none }
+    #header .mobile-open { display: block; }
+}
+@media only screen and (max-width: 800px) {
+    #header .logo-one-world-strong { height:80px; top: 0 }
+}
+@media only screen and (max-width: 450px) {
+    #header .donate { display: none }
+}
+
 
 /* splash */
 #splash { height: calc(100vh - 112px) }
 #splash .logo { max-width: 940px; margin: 0 auto; padding-top: 140px }
+#splash .strap { text-align: center; color: #009A00; margin: 42px 0 }
 #splash .stats { position: absolute; width: 100%; bottom: 0; background: #71BB44 }
 #splash .stats ul { text-align: center; padding: 25px 20px 50px; color: #FFF; border-bottom: 1px solid #87C561 }
 #splash .stats li { float: left; width: 33.33% }
 #splash .stats p { font-size: 72px; line-height: 72px; font-weight: 700 }
 #splash .pledge { text-align: center; margin-top: -20px; padding-bottom: 28px }
-#splash .pledge .btn { margin-bottom: 20px }
+#splash .arrow { text-align: center; background: #FFF; padding:24px 0  }
 @media (max-width: 1450px) {
     #home-slider { min-height: 500px; }
     #home-slider .slider-contents { padding: 20px 0 0; }
@@ -97,15 +119,27 @@ body { background: url("../img/bg-body.svg")right top no-repeat; color: #535353;
     #home-slider p { font-size: 23px; line-height: 26px; }
 }
 
-/* home content */
-#home-content { padding-top: 62px }
+/* countdown */
+#countdown { background: #71BB44; padding: 65px 0 50px; text-align: center; color: #FFF; margin-top: 60px }
+#countdown span { display: block }
+#countdown .days { font-size: 104px; font-weight: 800; line-height: 104px }
+#countdown .date { font-weight: 700; line-height: 28px }
 
 /* pledge */
-#pledge .form { padding: 47px 120px 75px }
-#pledge h2 { }
-
-/* home whats next */
-#home-whats-next { padding-top: 83px }
+#pledge { margin-top: 40px }
+#pledge .box { border: 1px solid #B9DEA3; border-radius: 16px; padding: 0 15px }
+#pledge .form { max-width: 696px; padding: 47px 0 75px; margin: 0 auto }
+#pledge .btn-oauth { height: 60px; line-height: 60px; font-size: 24px; font-weight: 600; width: 335px; text-align: center; color: #FFF; border-radius: 8px; display: block; float: left }
+#pledge .btn-oauth-google { background: #3E82F7 }
+#pledge .btn-oauth-facebook { background: #3A579A; margin-left: 26px }
+#pledge .use-email a { color: #009400; font-weight: 700 }
+#pledge .use-email a:hover { text-decoration: underline }
+@media (max-width: 770px) {
+    #pledge h2 { text-align: center }
+    #pledge .btn-oauth { float: none; margin: 0 auto }
+    #pledge .btn-oauth-facebook { margin-top: 26px }
+    #pledge .use-email { text-align: center }
+}
 
 /* donate */
 #donate { padding-top:  37px; text-align: center }
@@ -119,10 +153,33 @@ body { background: url("../img/bg-body.svg")right top no-repeat; color: #535353;
     0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); visibility: visible }
     100% { -webkit-transform: translate3d(-100%, 0, 0); transform: translate3d(-100%, 0, 0) }
 }
-#ticker { position: fixed; bottom: 0; width: 100%; overflow: hidden; height: 72px; background-color: #2B881A; padding-left: 100%; box-sizing: content-box }
+#ticker { position: fixed; bottom: 0; width: 100%; overflow: hidden; height: 72px; background-color: #6FC3B7; padding-left: 100%; box-sizing: content-box; z-index: 2000 }
 #ticker .ticker { display: inline-block; height: 72px; line-height: 72px; white-space: nowrap; padding-right: 100%; box-sizing: content-box; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-name: ticker; animation-name: ticker; -webkit-animation-duration: 30s; animation-duration: 30s;
 }
-#ticker .ticker-item { display: inline-block; font-size: 24px; height: 72px; line-height: 72px; color: #133248; padding: 0 27px }
+#ticker .ticker-item { display: inline-block; font-size: 24px; height: 72px; line-height: 72px; color: #00324D; padding: 0 27px }
+#ticker .ticker-item:nth-child(2) { color: #FFF }
 
 /* footer */
-#footer { background: #234257; padding: 68px 0 124px }
+#footer { background: #234257; padding: 68px 0 124px; margin-top: 60px }
+#footer .social { margin: 0 auto; width: 208px }
+#footer .social li { width: 48px; float: left}
+#footer .social li:first-child { margin-right: 32px }
+#footer .social li:last-child { margin-left: 32px }
+#footer .columns { border-top: 1px solid #8798A3; border-bottom: 1px solid #8798A3; margin-top: 45px; padding: 42px 0 }
+#footer .column { display: inline-block; width: 128px; padding: 0 0 0 7px; vertical-align: top }
+#footer .column a { color: #FFF }
+#footer .column h4 { font-weight: 600; margin-bottom: 18px }
+#footer .column li { font-size: 16px; margin-bottom: 12px }
+#footer .copyright { margin-top: 22px; color: #FFF; font-size: 16px }
+@media (max-width: 710px) {
+    #footer .columns { text-align: center }
+    #footer .column { padding: 0 }
+    #footer .column-1,
+    #footer .column-2 { width: 50% }
+    #footer .column-3,
+    #footer .column-4,
+    #footer .column-5 { width: 33.33%; margin-top: 60px }
+}
+@media (max-width: 710px) {
+    #footer .column { width: 100%; margin: 0 0 20px }
+}
