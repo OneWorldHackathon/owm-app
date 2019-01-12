@@ -24,8 +24,11 @@
     "url": "git@github.com:OneWorldHackathon/owm-app.git"
   },
   "dependencies": {
+    "@types/uuid": "3.4.4",
+    "class-validator": "0.9.1",
     "firebase-admin": "^6.1.0",
-    "firebase-functions": "^2.1.0"
+    "firebase-functions": "^2.1.0",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "@types/chai": "4.1.7",
