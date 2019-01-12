@@ -16,6 +16,15 @@ export type ProviderProfile = {
 })
 export class AuthService {
 
+  private readonly ACTION_CODE_SETTINGS: auth.ActionCodeSettings = {
+      // URL you want to redirect back to. The domain (www.example.com) for this
+      // URL must be whitelisted in the Firebase Console.
+    url: 'http://localhost:4200/signInWithEmail',
+      // This must be true.
+    handleCodeInApp: true,
+    // dynamicLinkDomain: 'localhost:4200',
+  }
+
   constructor(private auth: AngularFireAuth) { }
 
   async signInWithGoogle(): Promise<auth.UserCredential> {
@@ -23,8 +32,36 @@ export class AuthService {
     return await this.signIn(provider)
   }
 
+  async signInWithTwitter(): Promise<auth.UserCredential> {
+    const provider = new auth.TwitterAuthProvider()
+    return await this.signIn(provider)
+  }
+
+  async signInWithFacebook(): Promise<auth.UserCredential> {
+    const provider = new auth.FacebookAuthProvider()
+    return await this.signIn(provider)
+  }
+
   async signIn(provider: firebase.auth.AuthProvider): Promise<auth.UserCredential> {
     return this.auth.auth.signInWithPopup(provider)
+  }
+
+  async signInWithEmail(email: string): Promise<void> {
+    await this.auth.auth.sendSignInLinkToEmail(email, this.ACTION_CODE_SETTINGS)
+    window.localStorage.setItem('emailForSignIn', email)
+  }
+
+  async checkSignInWithEmailLink(): Promise<auth.UserCredential | null> {
+    if (this.auth.auth.isSignInWithEmailLink(window.location.href)) {
+      let email = window.localStorage.getItem('emailForSignIn')
+      if (!email) {
+        email = window.prompt('Please provide your email for confirmation')
+      }
+      if (email) {
+        return await this.auth.auth.signInWithEmailLink(email, window.location.href)
+      }
+    }
+    return null
   }
 
   async signOut(): Promise<void> {
