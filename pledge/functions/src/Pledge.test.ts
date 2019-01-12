@@ -7,17 +7,20 @@ import 'mocha'
 import {
   Pledge,
 } from './Pledge'
+import {
+  Conversions,
+} from './Conversions'
 describe('Test Pledge entity', () => {
 
-  const VALID_DISTANCE_KM = 20
+  const VALID_DISTANCE_M = 2000
 
   it('test uuid must be a valid uuid', async () => {
-    const pledge = Pledge.newInstance(VALID_DISTANCE_KM)
+    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
     expect(pledge.validate.length).to.be.eq(0)
   }),
   it('test distance is set properly', async () => {
-    const pledge = Pledge.newInstance(VALID_DISTANCE_KM)
-    expect(pledge.distanceMetres).to.be.eq(VALID_DISTANCE_KM)
+    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
+    expect(pledge.distanceKm).to.be.eq(Conversions.metresToKilometres(VALID_DISTANCE_M))
   })
 
 })
