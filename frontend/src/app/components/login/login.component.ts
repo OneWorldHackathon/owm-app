@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   async signInWithGoogle(): Promise<void> {
     const cred = await this.authService.signInWithGoogle()
     if (cred.user != null) {
+      console.log('Sign in successful', cred)
       return this.signedIn(cred.user)
     }
     console.error('Sign in unsuccessful', cred)
