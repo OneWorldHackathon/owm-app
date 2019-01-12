@@ -1,4 +1,4 @@
-import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore';
+import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore'
 import * as firebaseAdmin from 'firebase-admin'
 
 export interface Repository<T> {
@@ -23,7 +23,7 @@ implements Repository<T> {
     this.col = this._db.collection(_colPrefix + _entityName)
   }
 
-  find(id: string): Promise<T | undefined> {
+  find(_id: string): Promise<T | undefined> {
     throw new Error('Method not implemented.')
   }
 

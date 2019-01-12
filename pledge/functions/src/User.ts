@@ -4,7 +4,7 @@ import {
 import { ValidationException } from './ValidationException'
 import { DocumentData } from '@google-cloud/firestore'
 import { toFirestore } from './utils'
-import { FirestoreEntity } from './Repository';
+import { FirestoreEntity } from './Repository'
 /* Represents the persistence and transfer shape of a User Entity */
 export type UserData = {
   readonly id: string,
