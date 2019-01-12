@@ -3,6 +3,9 @@ import { EventContext } from 'firebase-functions'
 import * as firebaseAdmin from 'firebase-admin'
 import { Pledge } from './Pledge'
 import { PublicAggregatesView } from './PublicAggregatesView'
+import { CloudFirestoreUserRepository } from './UserRepository'
+import { ISO3166 } from './ISO3166'
+import { User } from './User'
 
 export async function computeTotalDistancePledged(
   _snap: DocumentSnapshot, _event: EventContext,
@@ -44,6 +47,15 @@ export async function computeTotalDistancePledged(
     const eventDoc = await tx.get(eventsRef)
 
     if (!eventDoc.exists) {
+      const repo = new CloudFirestoreUserRepository(db)
+      const user: User | undefined = await repo.find(pledge.userId)
+      let country: string = ''
+      if (user !== undefined) {
+        country = ISO3166.lookup(user.location.countryCode).name
+      } else {
+        return
+      }
+
       // Then we have not processed this event before.
       // We will record the fact that we processed this event for idempotency.
       await tx.create(eventsRef, { id: _event.eventId })
@@ -55,6 +67,16 @@ export async function computeTotalDistancePledged(
       // Update the aggregates.
       aggregates.distanceKm += pledge.distanceKm
       aggregates.distanceMiles += pledge.distanceMiles
+
+      if (!(country in aggregates.distanceByCountry)) {
+        aggregates.distanceByCountry[country] = {
+          distanceKm: pledge.distanceKm,
+          distanceMiles: pledge.distanceMiles,
+        }
+      } else {
+        aggregates.distanceByCountry[country].distanceKm += pledge.distanceKm
+        aggregates.distanceByCountry[country].distanceKm += pledge.distanceMiles
+      }
 
       // Persist the aggregates.
       await tx.update(publicStatsRef, aggregates)
