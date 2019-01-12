@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import { User } from './User'
-import { UserRepository, CloudFirestoreUserRepository } from './UserRepository'
+import { CloudFirestoreUserRepository } from './UserRepository'
+import { Repository } from './Repository'
 /**
  * Entry point for firebase auth hook when User first signs-up.
  * This function will be called from a Firebase function
@@ -20,7 +21,7 @@ export async function onAuthUserCreate(
 }
 
 export async function createUser(
-  userRecord: admin.auth.UserRecord, repo: UserRepository,
+  userRecord: admin.auth.UserRecord, repo: Repository<User>,
 ): Promise<User | undefined> {
   console.log('userRecord', userRecord)
   console.log('onAuthUserCreate called for userId ', userRecord.uid)
