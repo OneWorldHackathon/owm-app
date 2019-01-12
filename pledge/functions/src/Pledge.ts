@@ -4,9 +4,9 @@ import {
 } from 'class-validator'
 import { ValidationException } from './ValidationException'
 import { Conversions } from './Conversions'
-import { FirestoreEntity } from './Repository';
-import { toFirestore } from './utils';
-import { DocumentData } from '@google-cloud/firestore';
+import { FirestoreEntity } from './Repository'
+import { toFirestore } from './utils'
+import { DocumentData } from '@google-cloud/firestore'
 /* Represents the persistence and transfer shape of a Pledge Entity */
 export type PledgeData = {
   readonly id: string,
