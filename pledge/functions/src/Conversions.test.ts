@@ -12,6 +12,10 @@ describe('Test Conversions utility', () => {
   it('test metres to kilometres', async () => {
     const km = Conversions.metresToKilometres(1000)
     expect(km).to.be.eq(1)
+  })
+  it('test kilometres to metres', async () => {
+    const m = Conversions.kilometresToMetres(1)
+    expect(m).to.be.eq(1000)
   }),
   it('test metres to miles', async () => {
     const miles = Conversions.metresToMiles(42164.8128)

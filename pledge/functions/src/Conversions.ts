@@ -8,6 +8,9 @@ export class Conversions {
   static metresToKilometres(metres: number): number {
     return metres / this.METRES_KILOMETRES_CONSTANT
   }
+  static kilometresToMetres(metres: number): number {
+    return metres * this.METRES_KILOMETRES_CONSTANT
+  }
   static metresToMiles(metres: number) : number {
     return metres / this.MILES_METRES_CONSTANT
   }
