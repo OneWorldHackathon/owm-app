@@ -4,25 +4,26 @@ import {
 import { ValidationException } from './ValidationException'
 import { DocumentData } from '@google-cloud/firestore'
 import { toFirestore } from './utils'
+import { FirestoreEntity } from './Repository';
 /* Represents the persistence and transfer shape of a User Entity */
 export type UserData = {
   readonly id: string,
   readonly email: string,
   readonly createdAt: Date,
 }
-export class User {
+export class User implements FirestoreEntity {
 
   @IsString()
   @IsNotEmpty()
-  readonly id: string
+  readonly _id: string
 
   @IsEmail()
   readonly email: string
 
   readonly createdAt: Date
 
-  private constructor(id: string, createdAt: Date, email: string) {
-    this.id = id
+  private constructor(_id: string, createdAt: Date, email: string) {
+    this._id = _id
     this.email = email
     this.createdAt = createdAt
     const valid = this.validate()
@@ -37,7 +38,7 @@ export class User {
 
   toUserData(): UserData {
     return {
-      id: this.id,
+      id: this._id,
       email: this.email,
       createdAt: this.createdAt,
     }
@@ -52,5 +53,9 @@ export class User {
   }
   validate(): ValidationError[] {
     return validateSync(this)
+  }
+
+  id(): string {
+    return this._id
   }
 }
