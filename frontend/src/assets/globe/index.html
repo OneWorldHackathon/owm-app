@@ -109,14 +109,8 @@
     <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
   </div>
 
-  <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
-    <span id="year1995" class="year">1995</span>
-    <span id="year2000" class="year">2001</span>
-  </div>
-
   <div id="title">
-   Hi Hannah, World Population
+   One World Marathon - Pledges.
   </div>
 
   <a id="ce" href="http://www.chromeexperiments.com/globe">
@@ -142,8 +136,7 @@
       var xhr;
       TWEEN.start();
       
-      var data = [[
-        "1990",
+      var data =
         [ 6,159,0.001,30,99,0.002,45,-109,0.000,42,115,0.007,4,-54,0.000,
           -16,-67,0.014,21,-103,0.006,-20,-64,0.004,-40,-69,0.001,
           32,64,0.001,28,67,0.006,8,22,0.000,-15,133,0.000,-16,20,0.000,
@@ -153,29 +146,24 @@
           9,-82,0.003,46,-60,0.002,-14,15,0.006,-15,-76,0.001,57,15,0.007,
           52,9,0.056,10,120,0.004,24,87,0.134,0,-51,0.005,-5,123,0.013
     ]
-    ]]
 
-
-    window.data = data;
-    for (i=0;i<data.length;i++) {
-      globe.addData(
-        data[i][1],
+    globe.addData(
+        data,
         { format: 'magnitude', 
-          name: data[i][0], 
+          name: "pledges", 
           animated: true}
         );
-    }
+
     globe.createPoints();
 
-    var t=0;
     new TWEEN.Tween(globe)
-      .to({time: t/3},500)
+      .to({time: 0},500)
       .easing(TWEEN.Easing.Cubic.EaseOut).start();
 
     globe.animate();
+
     document.body.style.backgroundImage = 'none'; // remove loading
             
-   
     }
 
   </script>
