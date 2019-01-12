@@ -24,8 +24,8 @@ export async function computeTotalParticipants(
 
   const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
 
-  return await db.runTransaction(async (tx) => {
-    let statsDoc = await tx.get(publicStatsRef)
+  await db.runTransaction(async (tx) => {
+    const statsDoc = await tx.get(publicStatsRef)
 
     if (!statsDoc.exists) {
       // Then we are on first run, so let's create the one and only row.
@@ -39,9 +39,11 @@ export async function computeTotalParticipants(
       }
       await tx.create(publicStatsRef, defaultPublicStats)
     }
+  })
 
-    statsDoc = await tx.get(publicStatsRef)
+  return await db.runTransaction(async (tx) => {
 
+    const statsDoc = await tx.get(publicStatsRef)
     const eventDoc = await tx.get(eventsRef)
 
     if (!eventDoc.exists) {
