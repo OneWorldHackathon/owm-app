@@ -1,5 +1,5 @@
 import {
-  IsEmail, IsString, IsNotEmpty,
+  IsEmail, IsString, IsNotEmpty, IsDate, IsOptional, IsInt, IsUrl,
 } from 'class-validator'
 import { ValidationException } from './ValidationException'
 import { DocumentData } from '@google-cloud/firestore'
@@ -11,9 +11,11 @@ export type UserData = {
   readonly id: string,
   readonly email: string,
   readonly displayName: string,
+  readonly profileUrl: string | undefined,
   readonly createdAt: Date,
   readonly lastName: string | undefined,
   readonly firstName: string | undefined,
+  readonly yearOfBirth: number | undefined,
 }
 export class User extends EntityBase {
 
@@ -24,25 +26,41 @@ export class User extends EntityBase {
   @IsNotEmpty()
   readonly displayName: string
 
+  @IsDate()
   readonly createdAt: Date
 
+  @IsOptional()
+  @IsUrl()
+  readonly profileURL: string | undefined
+
+  @IsOptional()
+  @IsString()
   _firstName: string | undefined
+
+  @IsOptional()
+  @IsString()
   _lastName: string | undefined
 
-  private constructor(_id: string, createdAt: Date, email: string, displayName: string) {
+  @IsOptional()
+  @IsInt()
+  _yearOfBirth: number | undefined
+
+  private constructor(_id: string, createdAt: Date, email: string,
+                      displayName: string, profileURL?: string) {
 
     super(_id)
     this.email = email
     this.createdAt = createdAt
     this.displayName = displayName
+    this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
       throw new ValidationException(valid)
     }
   }
 
-  static newInstance(id: string, email: string, displayName: string) {
-    return new User(id, new Date, email, displayName)
+  static newInstance(id: string, email: string, displayName: string, profileURL: string) {
+    return new User(id, new Date, email, displayName, profileURL)
   }
 
   set firstName(val: string) {
@@ -53,14 +71,20 @@ export class User extends EntityBase {
     this.lastName = val
   }
 
+  set yearOfBirth(val: number) {
+    this.yearOfBirth = val
+  }
+
   toUserData(): UserData {
     const o: UserData = {
       id: this.id(),
       email: this.email,
       createdAt: this.createdAt,
       displayName: this.displayName,
+      profileUrl: this.profileURL,
       lastName: this._lastName,
       firstName: this._firstName,
+      yearOfBirth: this._yearOfBirth,
     }
     return removeUndefinedProperties(o) as UserData
   }
