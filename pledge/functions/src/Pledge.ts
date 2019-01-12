@@ -26,6 +26,9 @@ export class Pledge {
     }
   }
 
+   /**
+   * New up a non persisted Pledge
+   */
   static newInstance(distanceMetres: number) {
     return new Pledge(uuid(), distanceMetres)
   }

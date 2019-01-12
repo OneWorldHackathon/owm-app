@@ -28,5 +28,15 @@ describe('Test Pledge entity', () => {
       Pledge.newInstance(Conversions.milesToMetres(26.3))
     }).to.throw(ValidationException)
   })
+  it('test distance cannot be less than 500 metres', async () => {
+    expect(() => {
+      Pledge.newInstance(499)
+    }).to.throw(ValidationException)
+  })
+  it('test distance can be exactly 500 metres', async () => {
+    expect(() => {
+      Pledge.newInstance(499)
+    }).to.throw(ValidationException)
+  })
 
 })
