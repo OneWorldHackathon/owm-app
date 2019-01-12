@@ -55,11 +55,12 @@ export class User extends EntityBase {
     this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
+      console.log(valid)
       throw new ValidationException(valid)
     }
   }
 
-  static newInstance(id: string, email: string, displayName: string, profileURL: string) {
+  static newInstance(id: string, email: string, displayName: string, profileURL?: string) {
     return new User(id, new Date, email, displayName, profileURL)
   }
 
