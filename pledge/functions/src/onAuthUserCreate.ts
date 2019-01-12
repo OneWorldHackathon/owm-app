@@ -33,7 +33,7 @@ export async function createUser(
   }
 
   const user: User = User.newInstance(
-    userRecord.uid, userRecord.email,
+    userRecord.uid, userRecord.email, userRecord.displayName,
   )
 
   return repo.create(user)

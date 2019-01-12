@@ -67,4 +67,18 @@ export const parseFirestoreValue = (v: any): FirestoreValue => {
   function filterUndef<T>(ts: (T | undefined)[]): T[] {
     return ts.filter((t: T | undefined): t is T => !!t)
   }
+
+}
+
+export function removeUndefinedProperties(o: { [_: string]: any }): { [_: string]: any } {
+  Object.keys(o)
+    .forEach((key) => {
+      if (typeof o[key] === 'object') {
+        o[key] = removeUndefinedProperties(o[key])
+      }
+      if (o[key] === undefined) {
+        delete (o[key])
+      }
+    })
+  return o
 }
