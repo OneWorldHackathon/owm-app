@@ -1,9 +1,10 @@
 import { FirestoreEntity } from './Repository'
-import { IsUUID, validateSync, ValidationError, IsNotEmpty } from 'class-validator'
+import { validateSync, ValidationError, IsNotEmpty, IsString } from 'class-validator'
 
 export abstract class EntityBase implements FirestoreEntity {
 
-  @IsUUID('4') @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   private readonly _id: string
 
   constructor(id: string) {
