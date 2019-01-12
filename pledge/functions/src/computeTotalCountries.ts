@@ -18,12 +18,19 @@ export async function computeTotalCountries(
 
   const db = firebaseAdmin.firestore()
   const publicStatsRef = db.collection('publicStats')
-                      .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
+    .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
 
   const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
 
   const user = data as User
 
+  if (user === undefined || user.location === undefined) {
+    console.log('User is undefined or user.location is undefined, nothing to do')
+    return
+
+  }
+
+  const location = user.location
   return await db.runTransaction(async (tx) => {
     let statsDoc = await tx.get(publicStatsRef)
 
@@ -51,10 +58,10 @@ export async function computeTotalCountries(
 
       // Get the current state of the aggregates.
       const aggregates: PublicAggregatesView | undefined =
-                await statsDoc.data() as PublicAggregatesView
+        await statsDoc.data() as PublicAggregatesView
 
       // Update the aggregates.
-      const country = ISO3166.lookup(user.location.countryCode).name
+      const country = ISO3166.lookup(location.countryCode).name
 
       if (aggregates.countries.indexOf(country) === -1) {
         aggregates.countries.push(country)
@@ -65,5 +72,4 @@ export async function computeTotalCountries(
     }
 
   })
-
 }

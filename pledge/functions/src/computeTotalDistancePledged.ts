@@ -22,7 +22,7 @@ export async function computeTotalDistancePledged(
 
   const db = firebaseAdmin.firestore()
   const publicStatsRef = db.collection('publicStats')
-                      .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
+    .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
 
   const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
 
@@ -50,7 +50,7 @@ export async function computeTotalDistancePledged(
       const repo = new CloudFirestoreUserRepository(db)
       const user: User | undefined = await repo.find(pledge.userId)
       let country: string = ''
-      if (user !== undefined) {
+      if (user !== undefined && user.location !== undefined) {
         country = ISO3166.lookup(user.location.countryCode).name
       } else {
         return
@@ -62,20 +62,22 @@ export async function computeTotalDistancePledged(
 
       // Get the current state of the aggregates.
       const aggregates: PublicAggregatesView | undefined =
-                await statsDoc.data() as PublicAggregatesView
+        await statsDoc.data() as PublicAggregatesView
 
       // Update the aggregates.
       aggregates.distanceKm += pledge.distanceKm
       aggregates.distanceMiles += pledge.distanceMiles
 
-      if (!(country in aggregates.distanceByCountry)) {
-        aggregates.distanceByCountry[country] = {
-          distanceKm: pledge.distanceKm,
-          distanceMiles: pledge.distanceMiles,
+      if (country !== '') {
+        if (!(country in aggregates.distanceByCountry)) {
+          aggregates.distanceByCountry[country] = {
+            distanceKm: pledge.distanceKm,
+            distanceMiles: pledge.distanceMiles,
+          }
+        } else {
+          aggregates.distanceByCountry[country].distanceKm += pledge.distanceKm
+          aggregates.distanceByCountry[country].distanceKm += pledge.distanceMiles
         }
-      } else {
-        aggregates.distanceByCountry[country].distanceKm += pledge.distanceKm
-        aggregates.distanceByCountry[country].distanceKm += pledge.distanceMiles
       }
 
       // Persist the aggregates.

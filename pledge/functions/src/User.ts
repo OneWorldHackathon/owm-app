@@ -24,7 +24,7 @@ export class User extends EntityBase {
 
   @IsString()
   @IsNotEmpty()
-  _displayName: string
+  private _displayName: string
 
   @IsDate()
   readonly createdAt: Date
@@ -60,15 +60,27 @@ export class User extends EntityBase {
   }
 
   set displayName(val: string) {
-    this.displayName = val
+    this._displayName = val
   }
 
-  set yearOfBirth(val: number) {
+  get displayName() {
+    return this._displayName
+  }
+
+  set yearOfBirth(val: number | undefined) {
     this.yearOfBirth = val
   }
 
-  set location(val: Location) {
+  get yearOfBirth() {
+    return this._yearOfBirth
+  }
+
+  set location(val: Location | undefined) {
     this.location = val
+  }
+
+  get location() {
+    return this._location
   }
 
   toUserData(): UserData {

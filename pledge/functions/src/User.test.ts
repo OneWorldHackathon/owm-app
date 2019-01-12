@@ -17,4 +17,10 @@ describe('Test User entity', () => {
       User.newInstance('123-User', 'dev@oneworlhackathon.org', 'Dev User', 'InvalidUrl')
     }).to.throw(ValidationException)
   })
+  it('test valid value in setDisplayName passes validation', () => {
+
+    const a = User.newInstance('123-User', 'dev@oneworlhackathon.org', 'Dev User')
+    a.displayName = 'Bob Smith'
+    expect(a.displayName).to.eq('Bob Smith')
+  })
 })
