@@ -2,7 +2,7 @@ import { DocumentSnapshot } from '@google-cloud/firestore'
 import { EventContext } from 'firebase-functions'
 import * as firebaseAdmin from 'firebase-admin'
 import { Pledge } from './Pledge'
-import { PublicAggregatesView } from './PublicAggregatesView';
+import { PublicAggregatesView } from './PublicAggregatesView'
 
 export async function computeTotalDistancePledged(
   _snap: DocumentSnapshot, _event: EventContext,
