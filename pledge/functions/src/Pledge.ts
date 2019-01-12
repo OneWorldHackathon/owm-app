@@ -20,6 +20,9 @@ export class Pledge {
     }
   }
 
+  /**
+   * New up a non persisted Pledge
+   */
   static newInstance() {
     return new Pledge(uuid())
   }

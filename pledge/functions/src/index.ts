@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import { onPledgeFormCreate } from './onPledgeFormCreate'
 import * as functions from 'firebase-functions'
+import { onAuthUserCreate } from './onAuthUserCreate'
 
 admin.initializeApp()
 const settings = { timestampsInSnapshots: true }
@@ -14,5 +15,11 @@ exports.pledgeFunctions = {
    */
   onPledgeCreate: functions.firestore.document('pledgeForm/{id}')
     .onCreate(onPledgeFormCreate),
+
+}
+
+exports.userFunctions = {
+
+  onAuthUserCreate: functions.auth.user().onCreate(onAuthUserCreate),
 
 }
