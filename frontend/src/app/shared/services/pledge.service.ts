@@ -10,9 +10,16 @@ export type Totals = {
   milesPledged: number,
 }
 
-export type CreatePledge = {
-  userId: string,
-  miles: string,
+export type PledgeForm = {
+  readonly userId: string,
+  readonly userDisplayName: string,
+  readonly yearOfBirth: string,
+  readonly pledge: number,
+  readonly location: Location,
+}
+
+export type Location = {
+  lat: number, lng: number, countryCode: string, description: string,
 }
 
 @Injectable({
@@ -29,16 +36,19 @@ export class PledgeService {
       .valueChanges()
   }
 
-  public async createPledge(distance: number): Promise<DocumentReference> {
+  public async createPledge(name: string, yearOfBirth: string,
+                            pledge: number, location: Location): Promise<DocumentReference> {
     const user = await this.authService.getUser().pipe(take(1)).toPromise()
     if (user == null) {
       throw new Error('User must be logged in to create a pledge')
     }
-    return this.db.collection<CreatePledge>('pledges')
+    return this.db.collection<PledgeForm>('pledges')
       .add({
+        yearOfBirth,
+        pledge,
+        location,
+        userDisplayName: name,
         userId: user.userId,
-        miles: distance.toFixed(4),
       })
   }
-
 }
