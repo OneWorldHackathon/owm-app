@@ -18,7 +18,16 @@ describe('Test Pledge entity', () => {
   it('test uuid must be a valid uuid', async () => {
     const pledge = Pledge.newInstance(VALID_DISTANCE_M)
     expect(pledge.validate.length).to.be.eq(0)
-  }),
+  })
+
+  it('test undefined distance not allowed', () => {
+    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
+    const data: any = pledge.toPledgeData()
+    data.distanceMetres = undefined
+    expect(() => {
+      Pledge.fromJSON(data)
+    }).to.throw(ValidationException)
+  })
   it('test distance is set properly', async () => {
     const pledge = Pledge.newInstance(VALID_DISTANCE_M)
     expect(pledge.distanceKm).to.be.eq(Conversions.metresToKilometres(VALID_DISTANCE_M))

@@ -26,8 +26,9 @@ export async function createPledge(pledgeForm: PledgeForm,
   const user = await repo.find(pledgeForm.userId)
   if (user === undefined) {
     console.error('Cannot create a pledge for a User that does not exist', pledgeForm)
+    return false
   }
-  const pledge: Pledge = Pledge.newInstance(100)
+  const pledge: Pledge = Pledge.newInstance(pledgeForm.distanceMetres)
   console.log(pledge)
   await repo.create(pledge)
   return true
