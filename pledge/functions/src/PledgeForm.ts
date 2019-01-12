@@ -4,8 +4,7 @@ export type Location = {
 export type PledgeForm = {
 
   readonly userId: string,
-  readonly firstName: string,
-  readonly lastName: string
+  readonly userDisplayName: string
   readonly yearOfBirth: string,
   readonly pledge: number,
   readonly location: Location,

@@ -14,8 +14,6 @@ export type UserData = {
   readonly displayName: string,
   readonly profileUrl: string | undefined,
   readonly createdAt: Date,
-  readonly lastName: string | undefined,
-  readonly firstName: string | undefined,
   readonly yearOfBirth: number | undefined,
   readonly location: Location | undefined,
 }
@@ -26,7 +24,7 @@ export class User extends EntityBase {
 
   @IsString()
   @IsNotEmpty()
-  readonly displayName: string
+  _displayName: string
 
   @IsDate()
   readonly createdAt: Date
@@ -34,14 +32,6 @@ export class User extends EntityBase {
   @IsOptional()
   @IsUrl()
   readonly profileURL: string | undefined
-
-  @IsOptional()
-  @IsString()
-  _firstName: string | undefined
-
-  @IsOptional()
-  @IsString()
-  _lastName: string | undefined
 
   @IsOptional()
   @IsInt()
@@ -56,7 +46,7 @@ export class User extends EntityBase {
     super(_id)
     this.email = email
     this.createdAt = createdAt
-    this.displayName = displayName
+    this._displayName = displayName
     this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
@@ -69,12 +59,8 @@ export class User extends EntityBase {
     return new User(id, new Date, email, displayName, profileURL)
   }
 
-  set firstName(val: string) {
-    this.firstName = val
-  }
-
-  set lastName(val: string) {
-    this.lastName = val
+  set displayName(val: string) {
+    this.displayName = val
   }
 
   set yearOfBirth(val: number) {
@@ -92,8 +78,6 @@ export class User extends EntityBase {
       createdAt: this.createdAt,
       displayName: this.displayName,
       profileUrl: this.profileURL,
-      lastName: this._lastName,
-      firstName: this._firstName,
       yearOfBirth: this._yearOfBirth,
       location: this._location,
     }
