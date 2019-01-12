@@ -4,7 +4,7 @@ import {
 import { ValidationException } from './ValidationException'
 import { DocumentData } from '@google-cloud/firestore'
 import { toFirestore } from './utils'
-import { EntityBase } from './EntityBase';
+import { EntityBase } from './EntityBase'
 /* Represents the persistence and transfer shape of a User Entity */
 export type UserData = {
   readonly id: string,
@@ -43,7 +43,7 @@ export class User extends EntityBase {
   static fromJSON(o: UserData) {
     return new User(o.id, o.createdAt, o.email)
   }
-  
+
   toFirestore(): DocumentData {
     return toFirestore(this.toUserData())
 
