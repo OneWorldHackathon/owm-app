@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { auth, User } from 'firebase'
+import { auth } from 'firebase'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
@@ -8,6 +8,7 @@ export type ProviderProfile = {
   displayName: string | null,
   photoURL: string | null,
   email: string | null,
+  userId: string,
 }
 
 @Injectable({
@@ -37,6 +38,7 @@ export class AuthService {
           displayName: user.displayName,
           photoURL: user.photoURL,
           email: user.email,
+          userId: user.uid,
         }
       }
       return null

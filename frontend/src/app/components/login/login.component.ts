@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       displayName: user.displayName,
       photoURL: user.photoURL,
       email: user.email,
+      userId: user.uid,
     }
   }
 
