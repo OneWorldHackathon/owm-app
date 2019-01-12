@@ -1,41 +1,9 @@
-import { User, UserData } from './User'
-import { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore'
-import * as firebaseAdmin from 'firebase-admin'
+import { User } from './User'
+import { AbstractFirestoreRepository } from './Repository'
+import { Firestore } from '@google-cloud/firestore'
 
-export interface UserRepository {
-  find(id: string): Promise<User | undefined>
-  create(user: User): Promise<User>
-  update(user: User): Promise<User>
-
-}
-
-export class CloudFirestoreUserRepository implements UserRepository {
-
-  private readonly _db: Firestore
-  private readonly col: CollectionReference
-
+export class CloudFirestoreUserRepository extends AbstractFirestoreRepository<User> {
   constructor(_db?: Firestore, _colPrefix: string = '') {
-    this._db = _db !== undefined ? _db : firebaseAdmin.firestore()
-    this.col = this._db.collection(_colPrefix + 'user')
+    super('user', _db, _colPrefix)
   }
-  async find(id: string): Promise<User | undefined> {
-    const doc: DocumentData = await this.col.doc(id).get()
-    return User.fromJSON(doc as UserData)
-  }
-
-  async create(user: User): Promise<User> {
-    const doc: DocumentData = user.toFirestore()
-    doc.createdAt = new Date()
-    doc.updatedAt = new Date()
-    await this.col.doc(user.id).create(doc)
-    return user
-  }
-
-  async update(user: User): Promise<User> {
-    const doc: DocumentData = user.toFirestore()
-    doc.updatedAt = new Date()
-    await this.col.doc(user.id).update(doc)
-    return user
-  }
-
 }
