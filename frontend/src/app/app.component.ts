@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { AuthService } from '@shared/services/auth.service'
-import { PledgeService, Totals } from '@shared/services/pledge.service'
+import { PledgeService, PublicView } from '@shared/services/pledge.service'
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'app'
 
   public signedIn: boolean = false
-  public totals: Totals
+  public totals: PublicView
   public mostRecent10Pledges: string[]
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
