@@ -34,7 +34,7 @@ describe('Test onPledgeFormCreate', () => {
       pledge: 500,
       location: { countryCode: 'GB', description: 'United Kingdom', lat: 58.4, lng: -2.8 },
     }
-    await createPledge(pledgeForm, stubUserRepo, stubPledgeRepo, stubEmailService)
+    await createPledge('pledge-form-id', pledgeForm, stubUserRepo, stubPledgeRepo, stubEmailService)
     expect(stubPledgeRepo.create.calledOnce).to.equal(true)
     expect(stubUserRepo.update.calledOnce).to.equal(true)
     expect(stubUserRepo.find.calledOnce).to.equal(true)
