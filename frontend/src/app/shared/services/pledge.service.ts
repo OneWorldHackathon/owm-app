@@ -63,6 +63,7 @@ export class PledgeService {
     return this.db.collection('publicView')
       .doc<{ values: number[] }>('globe')
       .valueChanges().pipe(
+        take(1),
         map((doc: { values: number[] }) => doc.values),
       )
   }
