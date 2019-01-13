@@ -23,4 +23,25 @@ describe('Test User entity', () => {
     a.displayName = 'Bob Smith'
     expect(a.displayName).to.eq('Bob Smith')
   })
+
+  it('test toFirestore()', () => {
+    const userRecord = {
+      uid: 'oHFjfcMnYARyMasMGmhQaoRIjTu2',
+      email: 'dev@oneworldhackathon.org',
+      emailVerified: false,
+      displayName: null,
+      photoURL: null,
+      phoneNumber: null,
+      disabled: false,
+    }
+
+    const dn: string | null = userRecord.displayName
+    const photoURL: string | null = userRecord.photoURL
+    const user: User = User.newInstance(
+      userRecord.uid, userRecord.email,
+      dn !== null ? dn : 'Anonymous',
+      photoURL !== null ? photoURL : undefined,
+    )
+    console.log(user.toFirestore())
+  })
 })

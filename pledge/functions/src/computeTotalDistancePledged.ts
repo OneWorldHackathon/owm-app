@@ -18,12 +18,14 @@ export async function computeTotalDistancePledged(
     return
   }
 
+  // turn data into a Plede Entity
   const pledge = Pledge.fromJSON(data as PledgeData)
 
   const db = firebaseAdmin.firestore()
   const publicStatsRef = db.collection('publicStats')
-    .doc('i-am-the-one-and-only') // Aint nobody I'd rather be
+    .doc('top-level') // Aint nobody I'd rather be
 
+  // Unique firestore trigger events, ensure we only process an event once
   const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
 
   return await db.runTransaction(async (tx) => {
@@ -44,9 +46,11 @@ export async function computeTotalDistancePledged(
       participantsByCountry: {},
     }
     if (statsDoc.exists) {
+      // We already have some stats
       aggregates = await statsDoc.data() as PublicAggregatesView
     }
 
+    // find the User account
     const repo = new CloudFirestoreUserRepository(db)
     const user: User | undefined = await repo.find(pledge.userId)
     let country: string = ''
@@ -57,11 +61,11 @@ export async function computeTotalDistancePledged(
       return
     }
 
-    // Then we have not processed this event before.
+    // We have not processed this event before.
     // We will record the fact that we processed this event for idempotency.
     await tx.create(eventsRef, { id: _event.eventId })
 
-    // Update the aggregates.
+    // Update the aggregates from the pledge data
     aggregates.distanceKm += pledge.distanceKm
     aggregates.distanceMiles += pledge.distanceMiles
 
@@ -82,7 +86,7 @@ export async function computeTotalDistancePledged(
       }
     }
     console.log('about to persist aggregates', aggregates)
-    // Persist the aggregates.
+    // Persist the aggregates. WIll be created if doens't already exist
     await tx.set(publicStatsRef, aggregates)
   })
 

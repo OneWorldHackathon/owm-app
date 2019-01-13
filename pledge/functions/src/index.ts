@@ -25,7 +25,7 @@ exports.pledgeFunctions = {
       console.log('about to create test pledges')
 
       const pledgeForm: PledgeForm = {
-        userId: 'rSwFFlafFrZj8StmDlRipURIn2R2',
+        userId: 'iVcWdJLcKseshvufCafYlyZVY6v2',
         userDisplayName: 'Dev User',
         yearOfBirth: String(Math.floor(Math.random() * 2004) + 1900),
         pledge: Math.floor(Math.random() * 42164) + 500,
@@ -55,6 +55,7 @@ exports.userFunctions = {
 exports.viewFunctions = {
   computeTotalDistancePledged: functions.firestore.document('pledge/{id}')
     .onCreate(computeTotalDistancePledged),
-  computeTotalParticipants: functions.firestore.document('users/{id}')
-    .onCreate(computeTotalParticipants),
+
+  computeTotalParticipants: functions.firestore.document('user/{id}')
+    .onWrite(computeTotalParticipants),
 }
