@@ -7,6 +7,7 @@ import { CloudFirestorePledgeRepository } from './PledgeRepository'
 import { User } from './User'
 import { CloudFirestoreUserRepository } from './UserRepository'
 import { EmailService, SendGridEmailService } from './MailService'
+import * as firebaseAdmin from 'firebase-admin'
 
 export async function onPledgeFormCreate(
   _snap: DocumentSnapshot, _event: EventContext,
@@ -18,12 +19,12 @@ export async function onPledgeFormCreate(
     console.error('PledgeForm not found')
     return false
   }
-  return await createPledge(data as PledgeForm,
+  return await createPledge(_snap.id, data as PledgeForm,
                             new CloudFirestoreUserRepository(),
                             new CloudFirestorePledgeRepository(), new SendGridEmailService)
 }
 
-export async function createPledge(pledgeForm: PledgeForm, userRepo: Repository<User>,
+export async function createPledge(id: string, pledgeForm: PledgeForm, userRepo: Repository<User>,
                                    repo: Repository<Pledge>,
                                    emailService: EmailService): Promise<boolean> {
 
@@ -33,6 +34,8 @@ export async function createPledge(pledgeForm: PledgeForm, userRepo: Repository<
   if (user === undefined) {
     console.error('Cannot create a pledge for a User that does not exist', pledgeForm)
     return false
+    const db = firebaseAdmin.firestore()
+    await db.collection('pledgeForm').doc(id).delete()
   }
   user.displayName = pledgeForm.userDisplayName
   user.yearOfBirth = Number(pledgeForm.yearOfBirth)
