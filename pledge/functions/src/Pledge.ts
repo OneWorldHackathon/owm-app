@@ -14,21 +14,25 @@ export type PledgeData = {
   readonly userId: string,
   readonly distanceMetres: number,
   readonly location: Location,
+  readonly userProfile: string,
 }
 export class Pledge extends EntityBase {
 
   @Min(100) @Max(42164.8128)
   private readonly _distanceMetres: number
   readonly location: Location
+  readonly userProfile: string
 
   @IsString()
   @IsNotEmpty()
   private readonly _userId: string
-  private constructor(_id: string, userId: string, distanceMetres: number, location: Location) {
+  private constructor(_id: string, userId: string, distanceMetres: number,
+                      location: Location, userProfile: string) {
     super(_id)
     this._distanceMetres = distanceMetres
     this._userId = userId
     this.location = location
+    this.userProfile = userProfile
     const valid = this.validate()
     if (valid.length > 0) {
       throw new ValidationException(valid)
@@ -38,12 +42,13 @@ export class Pledge extends EntityBase {
   /**
   * New up a non persisted Pledge
   */
-  static newInstance(userId: string, distanceMetres: number, location: Location) {
-    return new Pledge(uuid(), userId, distanceMetres, location)
+  static newInstance(userId: string, distanceMetres: number,
+                     location: Location, userProfile: string) {
+    return new Pledge(uuid(), userId, distanceMetres, location, userProfile)
   }
 
   static fromJSON(o: PledgeData) {
-    return this.newInstance(o.userId, o.distanceMetres, o.location)
+    return this.newInstance(o.userId, o.distanceMetres, o.location, o.userProfile)
   }
 
   get userId(): string {
@@ -64,6 +69,7 @@ export class Pledge extends EntityBase {
       userId: this._userId,
       distanceMetres: this._distanceMetres,
       location: this.location,
+      userProfile: this.userProfile,
     }
   }
 

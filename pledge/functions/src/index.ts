@@ -5,6 +5,7 @@ import { onAuthUserCreate } from './onAuthUserCreate'
 import { computeTotalDistancePledged } from './computeTotalDistancePledged'
 import { computeTotalParticipants } from './computeTotalParticipants'
 import { PledgeForm } from './PledgeForm'
+import { collectRecentPledges } from './collectRecentPledges'
 
 admin.initializeApp()
 const settings = { timestampsInSnapshots: true }
@@ -55,6 +56,9 @@ exports.userFunctions = {
 exports.viewFunctions = {
   computeTotalDistancePledged: functions.firestore.document('pledge/{id}')
     .onCreate(computeTotalDistancePledged),
+
+  collectRecentPledges: functions.firestore.document('pledge/{id}')
+    .onCreate(collectRecentPledges),
 
   computeTotalParticipants: functions.firestore.document('user/{id}')
     .onWrite(computeTotalParticipants),

@@ -32,10 +32,10 @@ export async function computeTotalParticipants(
     console.error('User not found in database')
   }
   const db = firebaseAdmin.firestore()
-  const publicStatsRef = db.collection('publicStats')
+  const publicStatsRef = db.collection('publicView')
     .doc('top-level')
 
-  const eventsRef = db.collection('firestoreEvents').doc(_event.eventId)
+  const eventsRef = db.collection('firestoreEvent').doc(_event.eventId)
   return await db.runTransaction(async (tx) => {
 
     const statsDoc = await tx.get(publicStatsRef)
