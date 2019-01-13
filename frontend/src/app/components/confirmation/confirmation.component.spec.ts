@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { PledgeFormComponent } from './pledge-form.component'
+import { ConfirmationComponent } from './confirmation.component'
 
-describe('PledgeFormComponent', () => {
-  let component: PledgeFormComponent
-  let fixture: ComponentFixture<PledgeFormComponent>
+describe('ConfirmationComponent', () => {
+  let component: ConfirmationComponent
+  let fixture: ComponentFixture<ConfirmationComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PledgeFormComponent],
+      declarations: [ConfirmationComponent],
     })
     .compileComponents()
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PledgeFormComponent)
+    fixture = TestBed.createComponent(ConfirmationComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
