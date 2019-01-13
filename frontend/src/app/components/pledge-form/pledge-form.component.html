@@ -1,9 +1,25 @@
 <form *ngIf="pledgeForm != null" ngNativeValidate [formGroup]="pledgeForm" >
-  <label for="name">Name</label>
-  <input name="name" id="name" required formControlName="name" type="text" autocomplete="name"/>
-  <label for="yearOfBirth">Year of Birth</label>
-  <input name="yearOfbirth" id="yearOfBirth" max="2005" min="1900" required formControlName="yearOfBirth" type="number" autocomplete="bday-year"/>
-  <label for="location">Location (City/Town)</label>
-  <input name="location" required #location id="location"/>
-  <button type="submit" (click)="submitPledge()">Pledge</button>
+    <div class="form-group">
+        <label>Name</label>
+        <input name="name" id="name" required formControlName="name" autocomplete="name" type="text" class="text text-medium">
+    </div>
+    <div class="form-group">
+        <label>Year of birth</label>
+        <input type="text" class="text text-small" name="yearOfbirth" id="yearOfBirth" required formControlName="yearOfBirth" autocomplete="bday-year">
+    </div>
+    <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="text text-medium" name="location" required #location id="location">
+    </div>
+    <div class="form-group">
+        <label>Meters pledged</label>
+        <div class="range-container">
+            <input type="range" min="100" max="42195" value="100" class="range">
+        </div>
+        <input type="number" min="100" max="42195" value="100" class="text text-small range-number">
+        <div class="miles">
+            = <span class="miles-number">0.1</span> Miles
+        </div>
+    </div>
+    <button type="submit" (click)="submitPledge()" class="btn btn-green">Sign me up!</button>
 </form>

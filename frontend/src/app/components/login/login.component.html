@@ -11,12 +11,20 @@
     <p>We sent a sign in link to your email {{signInWithEmailLinkSentTo}}</p>
   </ng-template>
   <ng-template #signInButtons>
-    <button (click)="signInWithGoogle()">Sign In With Google</button>
-    <button (click)="signInWithTwitter()">Sign In With Twitter</button>
-    <span>Or sign in with your email</span>
-    <form *ngIf="emailSignInForm" [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
-      <input type="email" autocomplete="email" formControlName="email" />
-      <button type="submit" (click)="signInWithEmail()">Sign In With Email</button>
-    </form>
+
+    <div class="std-content">
+      <p>There’s two ways to sign up, one is to sign in using Google or Facebook, which means the form below will be filled in automatically, or you can do it the old fashioned way, and just type your details in by hand.</p>
+    </div>
+      <div class="buttons clearfix">
+          <a href="javascript:void" class="btn-oauth btn-oauth-google" (click)="signInWithGoogle()">Sign in using Google</a>
+          <a href="javascript:void" class="btn-oauth btn-oauth-facebook" (click)="signInWithFacebook()">Sign in using Facebook</a>
+      </div>
+
+      <p class="use-email"><a href="">...or by hand</a></p>
+
+      <form *ngIf="emailSignInForm" [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
+        <input type="email" class="text text-medium" autocomplete="email" formControlName="email" />
+        <button type="submit" class="btn" (click)="signInWithEmail()">Sign In With Email</button>
+      </form>
   </ng-template>
 </ng-template>
