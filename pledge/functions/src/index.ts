@@ -5,6 +5,7 @@ import { onAuthUserCreate } from './onAuthUserCreate'
 import { computeTotalDistancePledged } from './computeTotalDistancePledged'
 import { computeTotalParticipants } from './computeTotalParticipants'
 import { PledgeForm } from './PledgeForm'
+import { collectRecentPledges } from './collectRecentPledges'
 
 admin.initializeApp()
 const settings = { timestampsInSnapshots: true }
@@ -25,7 +26,7 @@ exports.pledgeFunctions = {
       console.log('about to create test pledges')
 
       const pledgeForm: PledgeForm = {
-        userId: 'rSwFFlafFrZj8StmDlRipURIn2R2',
+        userId: 'iVcWdJLcKseshvufCafYlyZVY6v2',
         userDisplayName: 'Dev User',
         yearOfBirth: String(Math.floor(Math.random() * 2004) + 1900),
         pledge: Math.floor(Math.random() * 42164) + 500,
@@ -53,8 +54,12 @@ exports.userFunctions = {
  *  - People
  */
 exports.viewFunctions = {
-  onPledgeCreate: functions.firestore.document('pledge/{id}')
+  computeTotalDistancePledged: functions.firestore.document('pledge/{id}')
     .onCreate(computeTotalDistancePledged),
-  onUserCreate: functions.firestore.document('users/{id}')
-    .onCreate(computeTotalParticipants),
+
+  collectRecentPledges: functions.firestore.document('pledge/{id}')
+    .onCreate(collectRecentPledges),
+
+  computeTotalParticipants: functions.firestore.document('user/{id}')
+    .onWrite(computeTotalParticipants),
 }
