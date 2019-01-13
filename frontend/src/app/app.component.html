@@ -141,7 +141,8 @@
             <div class="block">
                 <h2>How far do I have to run?</h2>
                 <p>It’s up to you!</p>
-                <p>You can run as little or as much as you want. The minimum is just 100 metres, the maximum is just under
+                <p>You can run as little or as much as you want. The minimum is just 100 metres, the maximum is just
+                    under
                     a marathon distance (because of the minimum team number of 4 individuals). </p>
             </div>
         </div>
@@ -149,12 +150,11 @@
     <section id="pledge" class="wrap-std">
         <div class="box">
             <div class="form std-form">
-                <div class="std-content">
-                    <h2>Apply and pledge</h2>
-                </div>
-
                 <ng-container *ngIf="signedIn; then showPledgeForm; else showLoginForm"></ng-container>
                 <ng-template #showLoginForm>
+                    <div class="std-content">
+                        <h2>Apply and pledge</h2>
+                    </div>
                     <app-login></app-login>
                 </ng-template>
                 <ng-template #showPledgeForm>

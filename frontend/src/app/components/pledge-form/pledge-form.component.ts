@@ -9,7 +9,6 @@ import { PledgeService } from '@shared/services/pledge.service'
 @Component({
   selector: 'app-pledge-form',
   templateUrl: './pledge-form.component.html',
-  styleUrls: ['./pledge-form.component.css'],
 })
 export class PledgeFormComponent implements OnInit {
 
@@ -18,6 +17,7 @@ export class PledgeFormComponent implements OnInit {
   @ViewChild('location')
   public locationSearch: ElementRef
   public profile: ProviderProfile
+  public pledged: boolean = false
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -29,6 +29,7 @@ export class PledgeFormComponent implements OnInit {
     if (user == null) {
       throw new Error('User must be signed in to access the pledge form')
     }
+    this.pledged = await this.pledgeService.hasUserPledged()
     this.profile = user
     console.log(user)
     this.pledgeForm =  this.fb.group({
@@ -88,9 +89,13 @@ export class PledgeFormComponent implements OnInit {
           control.markAsTouched({ onlySelf: true })
         }
       })
+      console.log(this.pledgeForm.errors)
+      console.log(this.pledgeForm)
       if (this.pledgeForm.valid) {
         const val = this.pledgeForm.getRawValue()
+        console.log('r')
         await this.pledgeService.createPledge(val.name, val.yearOfBirth, val.pledge, val.location)
+        this.pledged = true
       }
     }
   }
@@ -102,7 +107,6 @@ export class PledgeFormComponent implements OnInit {
   shouldShowErrors(fieldName: string): boolean {
     if (this.pledgeForm != null) {
       const field = this.pledgeForm.get(fieldName)
-      console.log(field)
       if (field != null) {
         return field.invalid && field.touched
       }
