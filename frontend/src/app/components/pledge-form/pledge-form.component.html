@@ -8,7 +8,7 @@
   </div>
   <ng-container *ngIf="profile">
     <div class="profile-info clearfix">
-      <img [src]="profile.photoURL" class="thumb-profile" />
+      <img *ngIf="profile.photoURL && profile.photoURL.length" [src]="profile.photoURL" class="thumb-profile" />
       <p><span>{{profile.displayName}}</span><br>
         <span>{{profile.email}}</span></p>
     </div>

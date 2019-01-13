@@ -32,7 +32,7 @@ export class PledgeFormComponent implements OnInit {
     }
     this.pledged = await this.pledgeService.hasUserPledged()
     if (this.pledged) {
-      this.scrollToPledge()
+      scrollToPledge()
     }
     this.profile = user
     this.pledgeForm =  this.fb.group({
