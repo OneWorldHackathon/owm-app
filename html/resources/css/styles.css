@@ -64,10 +64,31 @@ div, header, footer, section { position: relative }
 /* standard form */
 .std-form .form-group { margin-bottom: 34px }
 .std-form label { font-size: 14px; display: block; margin-bottom: 9px }
-.std-form input[type="text"] { display: block; border: 1px solid #B9DEA3; border-radius: 8px; font-size: 20px; font-weight: 600; color: #4A4A4A; height: 48px; line-height: 48px; padding: 0 15px }
+.std-form .text { display: block; border: 1px solid #B9DEA3; border-radius: 8px; font-size: 20px; font-weight: 600; color: #4A4A4A; height: 48px; line-height: 48px; padding: 0 15px; }
+.std-form .text-medium { width: 380px }
+.std-form .text-small { width: 080px }
+.std-form .range {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 6px; /* Specified height */
+    background: #B9DEA3; /* Grey background */
+    outline: none; /* Remove outline */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+@media only screen and (max-width: 420px) {
+    .std-form .text-medium { width: auto }
+}
 
 /* body */
 body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #535353; font-family: 'Open Sans', sans-serif; font-size: 20px; padding-bottom: 72px }
+@media only screen and (max-height: 1150px) {
+    body { padding-bottom: 50px }
+}
+@media only screen and (max-height: 940px), only screen and (max-width: 1560px) {
+    body { background-size: 530px 447px }
+}
 
 /* std wrap */
 .wrap-std { max-width: 936px; margin: 0 auto; padding: 0 14px }
@@ -101,22 +122,58 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
     #header .donate { display: none }
 }
 
-
 /* splash */
-#splash { height: calc(100vh - 112px) }
+#splash { height: calc(100vh - 122px) }
 #splash .logo { max-width: 940px; margin: 0 auto; padding-top: 140px }
-#splash .strap { text-align: center; color: #009A00; margin: 42px 0 }
+#splash .logo img { display: block }
+#splash .strap { text-align: center; color: #009A00; padding-top: 42px }
 #splash .stats { position: absolute; width: 100%; bottom: 0; background: #71BB44 }
-#splash .stats ul { text-align: center; padding: 25px 20px 50px; color: #FFF; border-bottom: 1px solid #87C561 }
-#splash .stats li { float: left; width: 33.33% }
+#splash .stats ul { text-align: center; padding: 25px 0 50px; color: #FFF; border-bottom: 1px solid #87C561 }
+#splash .stats .stat { float: left }
+#splash .stats .stat-1,
+#splash .stats .stat-3 { width: 45% }
+#splash .stats .stat-2 { width: 10% }
 #splash .stats p { font-size: 72px; line-height: 72px; font-weight: 700 }
 #splash .pledge { text-align: center; margin-top: -20px; padding-bottom: 28px }
-#splash .arrow { text-align: center; background: #FFF; padding:24px 0  }
-@media (max-width: 1450px) {
-    #home-slider { min-height: 500px; }
-    #home-slider .slider-contents { padding: 20px 0 0; }
-    #home-slider h2 { font-size: 42px; line-height: 46px; }
-    #home-slider p { font-size: 23px; line-height: 26px; }
+#splash .arrow { text-align: center; background: #FFF; padding:24px 0 }
+@media only screen and (max-height: 1150px) {
+    #splash { height: calc(100vh - 110px) }
+    #splash .logo { padding-top: 120px }
+    #splash .logo img { height: 400px; margin: 0 auto }
+    #splash .stats h2 { font-size: 18px }
+    #splash .stats p { font-size: 60px; line-height: 60px }
+    #splash .arrow { padding: 18px 0 }
+}
+@media only screen and (max-height: 1008px) {
+    #splash .arrow { display:none }
+}
+@media only screen and (max-height: 1008px) {
+    #splash .arrow { display:none }
+}
+@media only screen and (max-height: 940px) {
+    #splash .logo img { height: 340px }
+    #splash .strap { font-size: 18px; padding-top: 28px }
+    #splash .stats ul { padding: 20px 0 40px; }
+    #splash .stats h2 { font-size: 17px }
+    #splash .stats p { font-size: 50px; line-height: 50px }
+}
+@media only screen and (max-height: 840px) {
+    #splash .logo { padding-top: 100px }
+    #splash .logo img { height: 300px }
+}
+@media only screen and (max-height: 758px) {
+    #splash { height: auto }
+    #splash .stats { position: relative; margin-top: 30px }
+}
+@media only screen and (max-width: 840px) {
+    #splash .logo { padding-left: 30px; padding-right: 30px }
+}
+@media only screen and (max-width: 680px) {
+    #splash { height: auto }
+    #splash .stats { position: relative; margin-top: 30px }
+    #splash .stats .stat { float: none; width: auto }
+    #splash .stats .stat-1,
+    #splash .stats .stat-2 { margin-bottom: 30px }
 }
 
 /* countdown */
@@ -129,16 +186,21 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
 #pledge { margin-top: 40px }
 #pledge .box { border: 1px solid #B9DEA3; border-radius: 16px; padding: 0 15px }
 #pledge .form { max-width: 696px; padding: 47px 0 75px; margin: 0 auto }
-#pledge .btn-oauth { height: 60px; line-height: 60px; font-size: 24px; font-weight: 600; width: 335px; text-align: center; color: #FFF; border-radius: 8px; display: block; float: left }
+#pledge .btn-oauth { display:block; height: 60px; line-height: 60px; font-size: 24px; font-weight: 600; width: 335px; text-align: center; color: #FFF; border-radius: 8px; display: block; float: left }
 #pledge .btn-oauth-google { background: #3E82F7 }
 #pledge .btn-oauth-facebook { background: #3A579A; margin-left: 26px }
 #pledge .use-email a { color: #009400; font-weight: 700 }
+#pledge .range-container { margin-bottom: 20px }
 #pledge .use-email a:hover { text-decoration: underline }
-@media (max-width: 770px) {
+#pledge .miles { position: absolute; top: 86px; left: 120px }
+@media only screen and (max-width: 770px) {
     #pledge h2 { text-align: center }
-    #pledge .btn-oauth { float: none; margin: 0 auto }
+    #pledge .btn-oauth { float: none; margin: 0 auto; width: auto; max-width: 335px }
     #pledge .btn-oauth-facebook { margin-top: 26px }
     #pledge .use-email { text-align: center }
+}
+@media only screen and (max-width: 400px) {
+    #pledge .btn-oauth { font-size: 20px; height: 58px; line-height: 58px }
 }
 
 /* donate */
@@ -158,6 +220,11 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
 }
 #ticker .ticker-item { display: inline-block; font-size: 24px; height: 72px; line-height: 72px; color: #00324D; padding: 0 27px }
 #ticker .ticker-item:nth-child(2) { color: #FFF }
+@media only screen and (max-height: 1150px) {
+    #ticker { height: 50px }
+    #ticker .ticker,
+    #ticker .ticker-item { height: 50px; line-height: 50px; font-size: 18px }
+}
 
 /* footer */
 #footer { background: #234257; padding: 68px 0 124px; margin-top: 60px }
@@ -171,7 +238,7 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
 #footer .column h4 { font-weight: 600; margin-bottom: 18px }
 #footer .column li { font-size: 16px; margin-bottom: 12px }
 #footer .copyright { margin-top: 22px; color: #FFF; font-size: 16px }
-@media (max-width: 710px) {
+@media only screen and (max-width: 710px) {
     #footer .columns { text-align: center }
     #footer .column { padding: 0 }
     #footer .column-1,
@@ -180,6 +247,6 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
     #footer .column-4,
     #footer .column-5 { width: 33.33%; margin-top: 60px }
 }
-@media (max-width: 710px) {
+@media only screen and (max-width: 710px) {
     #footer .column { width: 100%; margin: 0 0 20px }
 }
