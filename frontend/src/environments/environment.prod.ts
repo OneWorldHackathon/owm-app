@@ -8,4 +8,5 @@ export const environment = {
     storageBucket: 'oneworldmarathon.appspot.com',
     messagingSenderId: '820477595207',
   },
+  signInWithEmail: 'https://blissful-hamilton-3ea7c6.netlify.com/signInWithEmail',
 }

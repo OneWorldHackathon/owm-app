@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth'
 import { auth } from 'firebase'
 import { Observable } from 'rxjs'
 import { map, take } from 'rxjs/operators'
+import { environment } from 'environments/environment'
 
 export type ProviderProfile = {
   displayName: string | null,
@@ -19,7 +20,7 @@ export class AuthService {
   private readonly ACTION_CODE_SETTINGS: auth.ActionCodeSettings = {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be whitelisted in the Firebase Console.
-    url: 'http://localhost:4200/signInWithEmail',
+    url: environment.signInWithEmail,
       // This must be true.
     handleCodeInApp: true,
     // dynamicLinkDomain: 'localhost:4200',
