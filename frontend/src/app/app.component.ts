@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     })
     this.pledgeService.getMostRecent10().subscribe(recent10 => {
       if (recent10 !== undefined) {
-        this.mostRecent10Pledges = recent10
+        this.mostRecent10Pledges = recent10.values
       }
     })
     this.authService.getUser().subscribe(user => {

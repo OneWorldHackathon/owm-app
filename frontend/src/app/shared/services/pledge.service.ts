@@ -13,6 +13,10 @@ export type Totals = {
   distanceByCountry: any,
 }
 
+export type MostRecent10 = {
+  values: String[],
+}
+
 export type PledgeForm = {
   readonly userId: string,
   readonly userDisplayName: string,
@@ -33,9 +37,9 @@ export class PledgeService {
   constructor(private db: AngularFirestore,
               private authService: AuthService) {}
 
-  public getMostRecent10(): Observable<String[] | undefined> {
+  public getMostRecent10(): Observable<MostRecent10 | undefined> {
     return this.db.collection('publicView')
-      .doc<String[]>('most-recent-10-pledges')
+      .doc<MostRecent10>('most-recent-10-pledges')
       .valueChanges()
   }
 
