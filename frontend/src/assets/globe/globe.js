@@ -77,13 +77,16 @@ DAT.Globe = function(container, opts) {
   var zoomSpeed = 50;
 
   var mouse = { x: 0, y: 0 }, mouseOnDown = { x: 0, y: 0 };
-  var rotation = { x: 0, y: 0 },
-      target = { x: Math.PI*3/2, y: Math.PI / 6.0 },
+  var // rotation = { x: 0, y: 0 },
+      rotation = { x: Math.PI*5/4, y: Math.PI / 15.0 },
+      target = rotation,
       targetOnDown = { x: 0, y: 0 };
 
   var distance = 100000, distanceTarget = 100000;
   var padding = 40;
   var PI_HALF = Math.PI / 2;
+
+  var spinSpeed  = 0.001;
 
   function init() {
 
@@ -355,7 +358,9 @@ DAT.Globe = function(container, opts) {
 
     rotation.x += (target.x - rotation.x) * 0.1;
     rotation.y += (target.y - rotation.y) * 0.1;
-    distance += (distanceTarget - distance) * 0.3;
+    distance   += (distanceTarget - distance) * 0.3;
+
+    target.x += spinSpeed;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
     camera.position.y = distance * Math.sin(rotation.y);
