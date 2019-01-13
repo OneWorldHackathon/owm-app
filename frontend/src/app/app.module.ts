@@ -10,11 +10,14 @@ import { LoginComponent } from './components/login/login.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { PledgeFormComponent } from './components/pledge-form/pledge-form.component'
 
+import { GlobeComponent } from './globe/globe.component'
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PledgeFormComponent,
+    GlobeComponent,
   ],
   imports: [
     BrowserModule,
