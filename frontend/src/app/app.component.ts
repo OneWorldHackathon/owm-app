@@ -29,9 +29,7 @@ export class AppComponent implements OnInit {
       }
     })
     this.authService.getUser().subscribe(user => {
-      if (user != null) {
-        this.signedIn = true
-      }
+      this.signedIn = user != null
     })
   }
 }
