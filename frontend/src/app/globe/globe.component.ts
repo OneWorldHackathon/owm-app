@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { PledgeService } from '@shared/services/pledge.service'
+import { Color } from 'three'
 
 @Component({
   selector: 'app-globe',
@@ -22,10 +23,12 @@ export class GlobeComponent implements OnInit {
 
       this.pledgeService.getGlobeData().subscribe(
         (data: number[]) => {
-          console.log('data', data)
 
-          const globe = datGlobe(container, { 
-            imgDir: '/assets/globe/' ,
+          const globe = datGlobe(container, {
+            imgDir: '/assets/globe/',
+            backgroundColor: 0x008000,
+            atmColor: [0.0, 0.0, 1.0, 1.0],
+            colorFn: (x: number) => new Color(1.0, 0.5, x * 3),
           })
 
           globe.addData(

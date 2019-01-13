@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "build": "yarn && yarn lint && yarn tsc",
     "test": "yarn build && yarn nyc mocha -r tsconfig-paths/register -r ts-node/register -r source-map-support/register src/*.test.ts --timeout 10000 --bail",
-    "serve": "npm run build && firebase serve --only functions:pledgeFunctions,functions:userFunctions,functions:viewFunctions",
+    "serve": "./generateRuntimeConfig.sh && yarn build && firebase serve --only functions:pledgeFunctions,functions:userFunctions,functions:viewFunctions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "yarn install && yarn lint && yarn build && until firebase deploy --only functions:pledgeFunctions,functions:userFunctions,functions:viewFunctions --force ; do echo FAILED TO DEPLOY, SLEEP 10  ; sleep 10; done",
@@ -24,6 +24,7 @@
     "url": "git@github.com:OneWorldHackathon/owm-app.git"
   },
   "dependencies": {
+    "@sendgrid/mail": "6.3.1",
     "@types/uuid": "3.4.4",
     "class-validator": "0.9.1",
     "firebase-admin": "^6.1.0",
@@ -43,7 +44,7 @@
     "sinon": "7.1.1",
     "source-map-support": "0.5.9",
     "ts-node": "7.0.1",
-    "tsconfig-paths": "3.6.0",
+    "tsconfig-paths": "3.7.0",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "5.11.0",
     "typescript": "3.2.2"
