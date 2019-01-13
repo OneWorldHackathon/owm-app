@@ -71,6 +71,7 @@ export class AuthService {
   getUser(): Observable<ProviderProfile | null> {
     return this.auth.authState.pipe(map(user => {
       if (user != null) {
+        console.log('Got user', user)
         return {
           displayName: user.displayName,
           photoURL: user.photoURL,

@@ -2,7 +2,7 @@
 import { MapsAPILoader } from '@agm/core'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { AuthService } from '@shared/services/auth.service'
+import { AuthService, ProviderProfile } from '@shared/services/auth.service'
 import { take } from 'rxjs/operators'
 import { PledgeService } from '@shared/services/pledge.service'
 
@@ -17,6 +17,7 @@ export class PledgeFormComponent implements OnInit {
   public pledgeForm: FormGroup | null = null
   @ViewChild('location')
   public locationSearch: ElementRef
+  public profile: ProviderProfile
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -28,10 +29,12 @@ export class PledgeFormComponent implements OnInit {
     if (user == null) {
       throw new Error('User must be signed in to access the pledge form')
     }
+    this.profile = user
+    console.log(user)
     this.pledgeForm =  this.fb.group({
       name: [user.displayName, Validators.required],
-      yearOfBirth: ['', [Validators.required, Validators.min(1900), Validators.max(2005)]],
-      pledge: ['', Validators.required],
+      yearOfBirth: ['', [Validators.required, Validators.pattern('^(19[0-9][0-9]|200[0-5])$')]],
+      pledge: ['', Validators.required, Validators.min(100), Validators.max(41864)],
       location: this.fb.group({
         countryCode: ['', Validators.required],
         description: ['', Validators.required],
@@ -78,10 +81,32 @@ export class PledgeFormComponent implements OnInit {
   }
 
   async submitPledge(): Promise<void> {
-    if (this.pledgeForm != null && this.pledgeForm.valid) {
-      const val = this.pledgeForm.getRawValue()
-      await this.pledgeService.createPledge(val.name, val.yearOfBirth,
-                                            this.pledgeMetres, val.location)
+    if (this.pledgeForm != null) {
+      Object.keys(this.pledgeForm.controls).forEach(field => {
+        const control = this.pledgeForm!.get(field)
+        if (control) {
+          control.markAsTouched({ onlySelf: true })
+        }
+      })
+      if (this.pledgeForm.valid) {
+        const val = this.pledgeForm.getRawValue()
+        await this.pledgeService.createPledge(val.name, val.yearOfBirth, val.pledge, val.location)
+      }
     }
+  }
+
+  async signOut(): Promise<void> {
+    await this.authService.signOut()
+  }
+
+  shouldShowErrors(fieldName: string): boolean {
+    if (this.pledgeForm != null) {
+      const field = this.pledgeForm.get(fieldName)
+      console.log(field)
+      if (field != null) {
+        return field.invalid && field.touched
+      }
+    }
+    return true
   }
 }

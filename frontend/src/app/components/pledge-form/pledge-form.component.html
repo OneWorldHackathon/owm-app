@@ -1,16 +1,29 @@
-<form *ngIf="pledgeForm != null" ngNativeValidate [formGroup]="pledgeForm" >
-    <div class="form-group">
-        <label>Name</label>
-        <input name="name" id="name" required formControlName="name" autocomplete="name" type="text" class="text text-medium">
-    </div>
-    <div class="form-group">
-        <label>Year of birth</label>
-        <input type="text" class="text text-small" name="yearOfbirth" id="yearOfBirth" required formControlName="yearOfBirth" autocomplete="bday-year">
-    </div>
-    <div class="form-group">
-        <label>Location</label>
-        <input type="text" class="text text-medium" name="location" required #location id="location">
-    </div>
+<ng-container *ngIf="profile">
+  <img [src]="profile.photoURL" />
+  <p>{{profile.displayName}}</p>
+  <span>{{profile.email}}</span>
+  <button (click)="signOut()" class="btn btn-orange">Sign Out</button>
+</ng-container>
+<form *ngIf="pledgeForm != null && profile" [formGroup]="pledgeForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input name="name" id="name" required formControlName="name" autocomplete="name" type="text" class="text text-medium"
+      aria-describedby="name-error">
+    <span id="name-error" class="error" *ngIf="shouldShowErrors('name')">Please enter your name</span>
+  </div>
+  <div class="form-group">
+    <label for="yearOfBirth">Year of birth</label>
+    <input type="text" class="text text-small" name="yearOfbirth" id="yearOfBirth" required formControlName="yearOfBirth"
+      pattern="^(19[0-9][0-9]|200[0-5])$" autocomplete="bday-year" aria-describedby="yearOfBirth-error">
+    <span id="yearOfBirth-error" class="error" *ngIf="shouldShowErrors('yearOfBirth')">Please a year between 1900-2005</span>
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="text text-medium" name="location" required #location id="location" aria-describedby="location-error">
+    <span id="location-error" class="error" *ngIf="shouldShowErrors('location')">Please type and then select your
+      location from the list</span>
+  </div>
+  <div class="form-group">
     <div class="form-group">
         <label>Meters pledged</label>
         <div class="range-container">
@@ -22,4 +35,5 @@
         </div>
     </div>
     <button type="submit" (click)="submitPledge()" class="btn btn-green">Sign me up!</button>
+  </div>
 </form>
