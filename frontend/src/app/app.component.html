@@ -1,4 +1,9 @@
 <ng-container *ngIf="signedIn; then showPledgeForm; else showLoginForm"></ng-container>
+<ul *ngIf="totals !== undefined">
+  <li>{{totals.participants}} people</li>
+  <li>{{totals.distanceKm}} km pledged</li>
+  <li>in {{totals.countries.length}} countr{{totals.countries.length === 1 ? 'y' : 'ies'}}</li>
+</ul>
 <ng-template #showPledgeForm>
   <app-pledge-form></app-pledge-form>
 </ng-template>

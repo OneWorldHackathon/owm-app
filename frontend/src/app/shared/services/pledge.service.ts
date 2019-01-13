@@ -5,9 +5,12 @@ import { AuthService } from './auth.service'
 import { take } from 'rxjs/operators'
 
 export type Totals = {
-  particpants: number,
-  countries: number,
-  milesPledged: number,
+  participants: number,
+  participantsByCountry: any,
+  countries: string[],
+  distanceKm: number,
+  distanceMiles: number,
+  distanceByCountry: any,
 }
 
 export type PledgeForm = {
@@ -31,8 +34,8 @@ export class PledgeService {
               private authService: AuthService) {}
 
   public getTotals(): Observable<Totals | undefined> {
-    return this.db.collection('totals')
-      .doc<Totals>('aggregate')
+    return this.db.collection('publicStats')
+      .doc<Totals>('top-level')
       .valueChanges()
   }
 

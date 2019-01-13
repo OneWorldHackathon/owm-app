@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { AuthService } from '@shared/services/auth.service'
+import { PledgeService, Totals } from '@shared/services/pledge.service'
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,17 @@ export class AppComponent implements OnInit {
   title = 'app'
 
   public signedIn: boolean = false
+  public totals: Totals
 
-  constructor(private authService: AuthService) {
-
+  constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }
 
   ngOnInit(): void {
+    this.pledgeService.getTotals().subscribe(totals => {
+      if (totals !== undefined) {
+        this.totals = totals
+      }
+    })
     this.authService.getUser().subscribe(user => {
       if (user != null) {
         this.signedIn = true
