@@ -53,6 +53,9 @@ div, header, footer, section { position: relative }
 .btn-green { background: #71BB44 }
 .btn-dark-green { background: #2F843D }
 
+/* profile image */
+.thumb-profile { border-radius: 10px; display: block; width: 100px; height: 100px }
+
 /* content block */
 .block { margin-top: 60px }
 .sub-block { padding-bottom: 60px }
@@ -67,16 +70,9 @@ div, header, footer, section { position: relative }
 .std-form .text { display: block; border: 1px solid #B9DEA3; border-radius: 8px; font-size: 20px; font-weight: 600; color: #4A4A4A; height: 48px; line-height: 48px; padding: 0 15px; }
 .std-form .text-medium { width: 380px }
 .std-form .text-small { width: 080px }
-.std-form .range {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 6px; /* Specified height */
-    background: #B9DEA3; /* Grey background */
-    outline: none; /* Remove outline */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
+.std-form .range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: #B9DEA3; outline: none; -webkit-transition: .2s; transition: opacity .2s;
 }
+.std-form .error { font-size: 14px; color: #d9534f; display: block; margin-top: 4px }
 @media only screen and (max-width: 420px) {
     .std-form .text-medium { width: auto }
 }
@@ -193,6 +189,9 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
 #pledge .range-container { margin-bottom: 20px }
 #pledge .use-email a:hover { text-decoration: underline }
 #pledge .miles { position: absolute; top: 86px; left: 120px }
+#pledge .profile-info img { float: left }
+#pledge .profile-info p { float: left; padding: 20px 0 0 20px; font-size: 16px }
+#pledge .signout { margin: 20px 0 }
 @media only screen and (max-width: 770px) {
     #pledge h2 { text-align: center }
     #pledge .btn-oauth { float: none; margin: 0 auto; width: auto; max-width: 335px }

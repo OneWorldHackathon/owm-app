@@ -1,8 +1,12 @@
 <ng-container *ngIf="profile">
-  <img [src]="profile.photoURL" />
-  <p>{{profile.displayName}}</p>
-  <span>{{profile.email}}</span>
-  <button (click)="signOut()" class="btn btn-orange">Sign Out</button>
+  <div class="profile-info clearfix">
+    <img [src]="profile.photoURL" class="thumb-profile" />
+    <p><span>{{profile.displayName}}</span><br>
+      <span>{{profile.email}}</span></p>
+  </div>
+  <div class="signout">
+    <button (click)="signOut()" class="btn btn-orange">Sign Out</button>
+  </div>
 </ng-container>
 <form *ngIf="pledgeForm != null && profile" [formGroup]="pledgeForm">
   <div class="form-group">
