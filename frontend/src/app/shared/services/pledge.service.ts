@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore'
+import { Observable } from 'rxjs'
 import { AuthService } from './auth.service'
-import { take } from 'rxjs/operators'
 
-export type Totals = {
-  particpants: number,
-  countries: number,
-  milesPledged: number,
+export type DistanceByCountry = {
+  readonly distanceKm: number,
+  readonly distanceMiles: number,
+}
+
+export type PublicView = {
+  readonly countries: string[],
+  readonly distanceByCountry: { [key: string]: DistanceByCountry }
+  readonly distanceKm: number,
+  readonly distanceMiles: number,
+  readonly particpants: number,
+  readonly particpantsByCountry: { [key: string]: number },
 }
 
 export type PledgeForm = {
@@ -30,25 +37,25 @@ export class PledgeService {
   constructor(private db: AngularFirestore,
               private authService: AuthService) {}
 
-  public getTotals(): Observable<Totals | undefined> {
-    return this.db.collection('totals')
-      .doc<Totals>('aggregate')
+  public getTotals(): Observable<PublicView | undefined> {
+    return this.db.collection('publicView')
+      .doc<PublicView>('top-level')
       .valueChanges()
   }
 
   public async createPledge(name: string, yearOfBirth: string,
                             pledge: number, location: Location): Promise<DocumentReference> {
-    const user = await this.authService.getUser().pipe(take(1)).toPromise()
-    if (user == null) {
+    const userId = await this.authService.getUserId()
+    if (userId == null) {
       throw new Error('User must be logged in to create a pledge')
     }
-    return this.db.collection<PledgeForm>('pledges')
+    return this.db.collection<PledgeForm>('pledgeForm')
       .add({
         yearOfBirth,
         pledge,
         location,
+        userId,
         userDisplayName: name,
-        userId: user.userId,
       })
   }
 }
