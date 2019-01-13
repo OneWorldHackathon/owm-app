@@ -38,7 +38,7 @@ export class PledgeFormComponent implements OnInit {
     this.pledgeForm =  this.fb.group({
       name: [user.displayName, Validators.required],
       yearOfBirth: ['', [Validators.required, Validators.pattern('^(19[0-9][0-9]|200[0-5])$')]],
-      pledge: ['', Validators.required, Validators.min(100), Validators.max(41864)],
+      pledge: ['100', [Validators.required, Validators.min(100), Validators.max(41864)]],
       location: this.fb.group({
         countryCode: ['', Validators.required],
         description: ['', Validators.required],
