@@ -1,1 +1,3 @@
 ./pledge/functions/node_modules/
+.vscode/
+.idea

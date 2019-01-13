@@ -8,13 +8,14 @@
     "tsc": "tsc",
     "build": "yarn && yarn lint && yarn tsc",
     "test": "yarn build && yarn nyc mocha -r tsconfig-paths/register -r ts-node/register -r source-map-support/register src/*.test.ts --timeout 10000 --bail",
-    "serve": "npm run build && firebase serve --only functions:pledgeFunctions",
+    "serve": "npm run build && firebase serve --only functions:pledgeFunctions,functions:userFunctions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "yarn install && yarn lint && yarn build && until firebase deploy --only functions:pledgeFunctions --force ; do echo FAILED TO DEPLOY, SLEEP 10  ; sleep 10; done",
+    "deploy": "yarn install && yarn lint && yarn build && until firebase deploy --only functions:pledgeFunctions,functions:userFunctions --force ; do echo FAILED TO DEPLOY, SLEEP 10  ; sleep 10; done",
     "logs": "firebase functions:log",
     "clean": "rm -rf node_modules/ ; true"
   },
+  "main": "lib/index.js",
   "engines": {
     "node": "8"
   },
@@ -23,8 +24,11 @@
     "url": "git@github.com:OneWorldHackathon/owm-app.git"
   },
   "dependencies": {
+    "@types/uuid": "3.4.4",
+    "class-validator": "0.9.1",
     "firebase-admin": "^6.1.0",
-    "firebase-functions": "^2.1.0"
+    "firebase-functions": "^2.1.0",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "@types/chai": "4.1.7",
