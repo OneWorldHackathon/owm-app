@@ -1,13 +1,244 @@
-<ng-container *ngIf="signedIn; then showPledgeForm; else showLoginForm"></ng-container>
-<ul *ngIf="totals !== undefined">
-  <li>{{totals.participants}} people</li>
-  <li>{{totals.distanceKm}} km pledged</li>
-  <li>in {{totals.countries.length}} countr{{totals.countries.length === 1 ? 'y' : 'ies'}}</li>
-</ul>
-<ng-template #showPledgeForm>
-  <app-pledge-form></app-pledge-form>
-</ng-template>
-<ng-template #showLoginForm>
-  <app-login></app-login>
-</ng-template>
-<app-globe></app-globe>
+<div class="wrap">
+    <header id="header">
+        <div class="wrap-logo">
+            <img src="assets/img/logo-one-world-strong.svg" alt="One World Strong" class="logo-one-world-strong">
+        </div>
+        <nav>
+            <div class="donate">
+                <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="comp-j698gmttform" class="ppb0form donate-form">
+                    <input type="hidden" name="cmd" value="_donations" id="comp-j698gmttcmd" class="ppb0cmd">
+                    <input type="hidden" name="item_name" value="One World Strong" id="comp-j698gmttitem_name" class="ppb0item_name">
+                    <input type="hidden" name="item_number" value="" id="comp-j698gmttitem_number" class="ppb0item_number">
+                    <input type="hidden" name="bn" value="Wix_Donate_WPS_IL" id="comp-j698gmttbn" class="ppb0bn">
+                    <input type="hidden" name="business" value="dave@oneworldstrong.org" id="comp-j698gmttbusiness"
+                        class="ppb0business">
+                    <input type="hidden" name="currency_code" value="USD" id="comp-j698gmttcurrency_code" class="ppb0currency_code">
+                    <input type="hidden" name="notify_url" value="https://inventory.wix.com/ecommerce/ipn/paypal" id="comp-j698gmttnotify_url"
+                        class="ppb0notify_url">
+                    <input type="hidden" name="return" value="https://www.oneworldstrong.org" id="comp-j698gmttreturn"
+                        class="ppb0return">
+                    <input type="hidden" name="cancel_return" value="https://www.oneworldstrong.org" id="comp-j698gmttcancel_return"
+                        class="ppb0cancel_return">
+                    <input type="hidden" name="amount" id="comp-j698gmttamount" class="ppb0amount" value="">
+                    <button class="btn">Donate</button>
+                </form>-->
+                <a href="https://www.oneworldstrong.org/copy-of-our-impact" target="_blank" class="btn">Donate</a>
+            </div>
+            <ul class="desktop-menu">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></li>
+            </ul>
+
+            <div class="mobile-open">
+                <span class="mobile-icon"></span>
+            </div>
+
+            <div class="mobile-menu">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <section id="splash">
+        <div class="logo">
+            <img src="assets/img/logo-one-world-marathon.svg" alt="One World Marathon">
+        </div>
+        <div class="strap">
+            <p class="wrap-std">the innaugral OWM global marathon 12-15th April 2019 – join us, run a little, care a
+                lot</p>
+        </div>
+        <div class="stats">
+            <ul *ngIf="totals !== undefined" class="clearfix wrap-std">
+                <li class="stat stat-1">
+                    <h2>Participants</h2>
+                    <p>{{totals.participants}}</p>
+                </li>
+                <li class="stat stat-2">
+                    <h2>Countries</h2>
+                    <p>{{totals.countries.length}}</p>
+                </li>
+                <li class="stat stat-3">
+                    <h2>Miles pledged</h2>
+                    <p>{{totals.distanceMiles | number:'1.0-0'}}</p>
+                </li>
+            </ul>
+            <div class="pledge wrap-std">
+                <a href="#pledge" class="btn btn-dark-green go-to-pledge">Pledge to run</a><br>
+            </div>
+            <div class="arrow">
+                <a href="#pledge" class="go-to-pledge"><img src="assets/img/arrow-down.svg" alt="Pledge"></a>
+            </div>
+        </div>
+    </section>
+    <section class="wrap-std content">
+        <div class="std-content">
+            <div class="block">
+                <h2>What is the One World Marathon?</h2>
+                <p>One World Strong Foundation embodies the core principles of connection and co-operation, supporting
+                    the belief that people around the world should work together toward common goals.</p>
+                <p>To reinforce that message, we’ve proposed a marathon, where teams of participants from around the
+                    world will combine their efforts to achieve a total of 26.2 miles (or 42.195km) over a four-day
+                    weekend. Participants apply and pledge a distance that they will run on the event dates.</p>
+            </div>
+            <div class="block">
+                <h2>Who is this aimed at?</h2>
+                <p>All are welcome, but we especially encourage young people to participate through their schools,
+                    colleges and universities, to reinforce the value of making connections, showing curiosity toward
+                    other cultures and collaborating toward common goals.</p>
+                <p>The event is open to all abilities, assisted or unassisted, mobility impaired, teams or individual
+                    participants, and will honor distances reached with or without assistance. In our inaugural year,
+                    we will strive for total global participation -- at least one participant from every country on
+                    Earth.</p>
+            </div>
+            <div class="block">
+                <h2>What’s your ultimate aim from the event?</h2>
+                <p>The creation of a global community working toward a common goal.</p>
+                <p>The implementation of a strong, unified virtual platform, whose message of connectivity and openness
+                    contradicts the basic premises of violent extremist and terrorist rhetoric. The promotion of a
+                    healthy and active lifestyle, global interconnectivity and resiliency for individuals and
+                    communities impacted by trauma.</p>
+                <p>One World Marathon’s aim is to inspire people to see the benefits of working together as a global
+                    community, and encourage others to develop similar projects.</p>
+            </div>
+            <div class="block">
+                <h2>When is it happening?</h2>
+                <p>Between April 12th - April 15th, around the globe.</p>
+                <p>The One World Marathon will start on April 12th with the RunJordan Dead Sea Ultra Marathon events,
+                    and it will end when the Boston Marathon’s final participant, and our Global Race Director Dave
+                    McGillivray crosses the finish line – approximately midnight EST on April 15th.</p>
+            </div>
+        </div>
+    </section>
+    <section id="countdown">
+        <div class="wrap-std">
+            <p>
+                <span class="days">{{daysUntil}}</span>
+                <span class="date">days until the event<br>
+                    12th – 15th April 2019</span>
+            </p>
+        </div>
+    </section>
+    <section class="wrap-std content">
+        <div class="std-content">
+            <div class="block">
+                <h2>Who can enter?</h2>
+                <p>Anyone, including you!</p>
+                <p>The one main objective of the event is to connect people across borders and diverse backgrounds. We
+                    encourage teams that represent multiple continents, countries and cultures, have any number of
+                    members, as long as there’s a minimum of four.</p>
+                <p>If you want to join in simply fill in the form below to enter.</p>
+            </div>
+            <div class="block">
+                <h2>How far do I have to run?</h2>
+                <p>It’s up to you!</p>
+                <p>You can run as little or as much as you want. The minimum is just 100 metres, the maximum is just
+                    under
+                    a marathon distance (because of the minimum team number of 4 individuals). </p>
+            </div>
+        </div>
+    </section>
+    <section id="pledge" class="wrap-std">
+        <div class="box">
+            <div class="form std-form">
+                <ng-container *ngIf="signedIn; then showPledgeForm; else showLoginForm"></ng-container>
+                <ng-template #showLoginForm>
+                    <div class="std-content">
+                        <h2>Apply and pledge</h2>
+                    </div>
+                    <app-login></app-login>
+                </ng-template>
+                <ng-template #showPledgeForm>
+                    <app-pledge-form></app-pledge-form>
+                </ng-template>
+            </div>
+        </div>
+    </section>
+    <section class="wrap-std content">
+        <div class="std-content">
+            <div class="block">
+                <h2>How can I follow the progress of the event?</h2>
+                <p>The OWM website and social media platforms will be tracking progress and participation globally.</p>
+                <p>We encourage participants to share their stories of preparing for the event, and how they overcome
+                    challenges along the way. In the lead-up to marathon weekend, our social media channels will
+                    feature stories of teamwork, bonding, resilience and the one-on-one connections the teams form
+                    pursuing mutual goals.</p>
+            </div>
+        </div>
+        <div class="std-content">
+            <div class="block">
+                <h2>What will happen after the event?</h2>
+                <p>In the years to come, we aim to build a curriculum with the focus of cultural immersion, global
+                    citizenship and resiliency culminating in an annual One World Marathon each Spring, and to expand
+                    involvement by increasing the number of education networks and participants on a diverse global
+                    scale.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="wrap-std">
+        <div class="std-content">
+            <a href="https://www.oneworldstrong.org/copy-of-our-impact" target="_blank" class="btn">Donate</a>
+            <p>Individuals and organizations are invited to make donations to our organization via PayPal.</p>
+        </div>
+    </section>
+
+    <section id="ticker">
+        <div *ngIf="mostRecent10Pledges" class="ticker">
+            <div class="ticker-item" *ngFor="let pledge of mostRecent10Pledges">{{pledge}}</div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="wrap-std">
+            <ul class="social clearfix">
+                <li><a target="_blank" href="https://www.facebook.com/1WSFoundation/"><img src="assets/img/icon-facebook.svg"
+                            alt="Facebook"></a></li>
+                <li><a target="_blank" href="https://twitter.com/1worldstronger"><img src="assets/img/icon-twitter.svg"
+                            alt="Twitter"></a></li>
+                <li><a target="_blank" href="http://www.instagram.com/1wsfoundation"><img src="assets/img/icon-instagram.svg"
+                            alt="Instagram"></a></li>
+            </ul>
+            <div class="columns clearfix">
+                <div class="column column-1">
+                    <h4><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></h4>
+                    <ul>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-who-we-are-1">Mission</a></li>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-mission">Our story</a></li>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-mission">Board</a></li>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-who-we-are">What we do</a></li>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do-1">How we do it</a></li>
+                    </ul>
+                </div>
+                <div class="column column-2">
+                    <h4><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></h4>
+                    <ul>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact-1">In the US</a></li>
+                        <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-work-in-orlando">Abroad</a></li>
+                    </ul>
+                </div>
+                <div class="column column-3">
+                    <h4><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></h4>
+                </div>
+                <div class="column column-4">
+                    <h4><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></h4>
+                </div>
+                <div class="column column-5">
+                    <h4><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></h4>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2019 - One World Strong Foundation
+            </div>
+        </div>
+    </footer>
+</div>
