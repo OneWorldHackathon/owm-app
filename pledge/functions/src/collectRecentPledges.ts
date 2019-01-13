@@ -23,7 +23,7 @@ export async function collectRecentPledges(
   const top10Pledges: Pledge[] = await repo.findMostRecent(10)
   const top1000Pledges: Pledge[] = await repo.findMostRecent(1000)
   const top10Values = top10Pledges.map((p) => {
-    return p.userProfile + ' from ' + p.location.description + ' just pledged '
+    return p.userProfile.trim().split(' ')[0] + ' from ' + p.location.description + ' just pledged '
       + Math.round(p.distanceMiles * 100) / 100 + ' miles'
   })
   const arrays: number[][] = top1000Pledges.map((p) => {
