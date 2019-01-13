@@ -32,8 +32,12 @@ export async function createUser(
     return undefined
   }
 
+  const displayName: string | null = userRecord.displayName
+  const photoURL: string | null = userRecord.photoURL
   const user: User = User.newInstance(
-    userRecord.uid, userRecord.email, userRecord.displayName, userRecord.photoURL,
+    userRecord.uid, userRecord.email,
+    displayName !== null ? displayName : 'Anonymous',
+    photoURL !== null ? photoURL : undefined,
   )
 
   return repo.create(user)

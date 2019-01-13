@@ -1,17 +1,22 @@
-export type ISO3166Data = {name: string, alpha2: string, countryCode: string}
+export type ISO3166Data = { name: string, alpha2: string, countryCode: string }
 export class ISO3166 {
 
   static map: any = undefined
 
-  static lookup(code: string) : ISO3166Data {
-    if (this.map === undefined) {
-      // Build lookup table
-      this.CODES.forEach((data) => {
-        this.map[data.countryCode] = data
-      })
+  static lookup(alpha2: string): ISO3166Data {
+    if (ISO3166.map !== undefined) {
+      console.log('map already defined so returning data')
+      return ISO3166.map[alpha2]
     }
 
-    return this.map[code]
+    ISO3166.map = {}
+    console.log('map loading')
+
+    // Build lookup table
+    this.CODES.forEach((data) => {
+      ISO3166.map[data.alpha2] = data
+    })
+    return ISO3166.map[alpha2]
   }
   static readonly CODES: ISO3166Data[] =
     [
