@@ -6,6 +6,7 @@ import { Repository } from './Repository'
 import { CloudFirestorePledgeRepository } from './PledgeRepository'
 import { User } from './User'
 import { CloudFirestoreUserRepository } from './UserRepository'
+import { sendEmail } from './MailService'
 
 export async function onPledgeFormCreate(
   _snap: DocumentSnapshot, _event: EventContext,
@@ -40,5 +41,12 @@ export async function createPledge(pledgeForm: PledgeForm, userRepo: Repository<
   console.log(pledge)
   await repo.create(pledge)
   await userRepo.update(user)
+  const emailVars = {
+    displayName: user.displayName,
+    pledge: Math.round(pledge.distanceMiles * 100) / 100 + ' miles' +
+      ' (' + Math.round(pledge.distanceKm * 100) / 100 + ' K) ',
+  }
+  await sendEmail('d-7c5e44dcbc4d4dbeb04ac25d8c6b15b0',
+                  user.email, emailVars)
   return true
 }
