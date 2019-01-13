@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { PledgeData } from './Pledge';
 
 @Component({
   selector: 'app-globe',
@@ -8,21 +7,16 @@ import { PledgeData } from './Pledge';
 })
 export class GlobeComponent implements OnInit {
 
-  // readonly pledgeCollection : CollectionReference // typename TBC
-
   constructor(
-    // db : FireStoreDB,
   ) {
-    // this.pledgeCollection = db.collection('publicPledges') // collection name TBC
   }
 
   async ngOnInit(): Promise<void> {
     const container: HTMLElement | null = document.getElementById('globeContainer')
 
-    if (window['DAT'] && window['DAT']['Globe'] && window['TWEEN']) {
+    if (window['DAT'] && window['DAT']['Globe']) {
 
       const datGlobe = window['DAT']['Globe']
-      const tween = window['TWEEN']
 
       const data =
         [6, 159, 0.001, 30, 99, 0.002, 45, -109, 0.000, 42, 115, 0.007, 4, -54, 0.000,
@@ -35,39 +29,20 @@ export class GlobeComponent implements OnInit {
           52, 9, 0.056, 10, 120, 0.004, 24, 87, 0.134, 0, -51, 0.005, -5, 123, 0.013,
         ]
 
-      // const pledgeData: PledgeData[] = 
-      //   await this.pledgeCollection.orderby('createdAt').limit(1000)
-      // const data: number[] = concatMap(
-      //   pledgeData,
-      //   (p: PledgeData) => [p.location.lat, p.location.lng, p.distanceMetres]
-      // )
-
       const globe = datGlobe(container, { imgDir: '/assets/globe/' })
-
-      // let i, tweens = []
-
-      tween.start()
 
       globe.addData(
         data,
         {
           format: 'magnitude',
           name: 'pledges',
-          // animated: true,
         },
       )
 
       globe.createPoints()
 
-      const xxxx = tween.Tween(globe)
-
-      console.log('xxxx', xxxx)
-
-      // xxxx.to({ time: 0 }, 500).easing(tween.Easing.Cubic.EaseOut).start()
-
       globe.animate()
 
-      // document.body.style.backgroundImage = 'none' // remove loading
     }
   }
 }
