@@ -30,9 +30,9 @@
       <span id="yearOfBirth-error" class="error" *ngIf="shouldShowErrors('yearOfBirth')">Please a year between
         1900-2005</span>
     </div>
-    <div class="form-group">
+    <div class="form-group" formGroupName="location">
       <label for="location">Location</label>
-      <input type="text" class="text text-medium" name="location" required #location id="location" aria-describedby="location-error">
+      <input type="text" class="text text-medium" name="location" required #location formControlName="description" id="location" aria-describedby="location-error">
       <span id="location-error" class="error" *ngIf="shouldShowErrors('location')">Please type and then select your
         location from the list</span>
     </div>

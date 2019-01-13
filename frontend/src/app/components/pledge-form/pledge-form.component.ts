@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService, ProviderProfile } from '@shared/services/auth.service'
 import { take } from 'rxjs/operators'
 import { PledgeService } from '@shared/services/pledge.service'
+import { scrollToPledge } from '@shared/scrolltopledge'
 
 @Component({
   selector: 'app-pledge-form',
@@ -30,8 +31,10 @@ export class PledgeFormComponent implements OnInit {
       throw new Error('User must be signed in to access the pledge form')
     }
     this.pledged = await this.pledgeService.hasUserPledged()
+    if (this.pledged) {
+      this.scrollToPledge()
+    }
     this.profile = user
-    console.log(user)
     this.pledgeForm =  this.fb.group({
       name: [user.displayName, Validators.required],
       yearOfBirth: ['', [Validators.required, Validators.pattern('^(19[0-9][0-9]|200[0-5])$')]],
@@ -95,12 +98,14 @@ export class PledgeFormComponent implements OnInit {
         const val = this.pledgeForm.getRawValue()
         console.log('r')
         await this.pledgeService.createPledge(val.name, val.yearOfBirth, val.pledge, val.location)
+        scrollToPledge()
         this.pledged = true
       }
     }
   }
 
   async signOut(): Promise<void> {
+    scrollToPledge()
     await this.authService.signOut()
   }
 
@@ -112,5 +117,10 @@ export class PledgeFormComponent implements OnInit {
       }
     }
     return true
+  }
+
+  locationKeyPress(): void {
+    console.log('keypress')
+    this.pledgeForm!.get('location')!.markAsTouched()
   }
 }

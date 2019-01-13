@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { ProviderProfile, AuthService } from '@shared/services/auth.service'
+import { scrollToPledge } from '@shared/scrolltopledge'
 
 @Component({
   selector: 'app-confirmation',
@@ -16,7 +17,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   async signOut(): Promise<void> {
+    scrollToPledge()
     await this.authService.signOut()
   }
-
 }
