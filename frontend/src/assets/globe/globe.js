@@ -145,6 +145,8 @@ DAT.Globe = function(container, opts) {
     point = new THREE.Mesh(geometry);
 
     renderer = new THREE.WebGLRenderer({antialias: true});
+
+    renderer.setClearColor( opts.backgroundColor !== undefined ? opts.backgroundColor : 0x000000, 0);
     renderer.setSize(w, h);
 
     renderer.domElement.style.position = 'absolute';
