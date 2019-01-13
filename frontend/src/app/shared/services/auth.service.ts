@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
 import { auth } from 'firebase'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 
 export type ProviderProfile = {
   displayName: string | null,
@@ -80,5 +80,12 @@ export class AuthService {
       }
       return null
     }))
+  }
+
+  async getUserId(): Promise<string | null> {
+    return this.getUser().pipe(
+      take(1),
+      map(user => user ? user.userId : null),
+    ).toPromise()
   }
 }

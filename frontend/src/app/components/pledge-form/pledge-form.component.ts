@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '@shared/services/auth.service'
 import { take } from 'rxjs/operators'
+import { PledgeService } from '@shared/services/pledge.service'
 
 @Component({
   selector: 'app-pledge-form',
@@ -18,6 +19,7 @@ export class PledgeFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
+              private pledgeService: PledgeService,
               private mapsAPILoader: MapsAPILoader) { }
 
   async ngOnInit(): Promise<void> {
@@ -71,6 +73,13 @@ export class PledgeFormComponent implements OnInit {
         }
         console.log(this.pledgeForm!.value)
       })
+    }
+  }
+
+  async submitPledge(): Promise<void> {
+    if (this.pledgeForm != null && this.pledgeForm.valid) {
+      const val = this.pledgeForm.getRawValue()
+      await this.pledgeService.createPledge(val.name, val.yearOfBirth, val.pledge, val.location)
     }
   }
 }
