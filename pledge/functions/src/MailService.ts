@@ -2,6 +2,19 @@ import * as SendGrid from '@sendgrid/mail'
 import * as functions from 'firebase-functions'
 SendGrid.setApiKey(`${functions.config().sendgrid.key}`)
 
+export interface EmailService {
+  send(templateId: string, to: string,
+       vars: { [_: string]: any }): Promise<void>
+}
+
+export class SendGridEmailService implements EmailService {
+
+  send(templateId: string, to: string,
+       vars: { [_: string]: any }): Promise<void> {
+    return sendEmail(templateId, to, vars)
+  }
+}
+
 export async function sendEmail(templateId: string, to: string,
                                 vars: { [_: string]: any }): Promise<void> {
   console.log('sendEmail to ', to)
