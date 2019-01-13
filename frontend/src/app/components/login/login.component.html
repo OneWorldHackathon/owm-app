@@ -1,0 +1,22 @@
+<ng-container *ngIf="profile; then signedIn; else signedOut"></ng-container>
+<ng-template #signedIn>
+  <p>{{profile.displayName}}</p>
+  <p>{{profile.email}}</p>
+  <img [src]="profile.photoURL" />
+  <button (click)="signOut()">Sign Out</button>
+</ng-template>
+<ng-template #signedOut>
+  <ng-container *ngIf="signInWithEmailLinkSentTo != null && signInWithEmailLinkSentTo.length; then signInLinkSent; else signInButtons"></ng-container>
+  <ng-template #signInLinkSent>
+    <p>We sent a sign in link to your email {{signInWithEmailLinkSentTo}}</p>
+  </ng-template>
+  <ng-template #signInButtons>
+    <button (click)="signInWithGoogle()">Sign In With Google</button>
+    <button (click)="signInWithTwitter()">Sign In With Twitter</button>
+    <span>Or sign in with your email</span>
+    <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
+      <input type="email" autocomplete="email" formControlName="email" />
+      <button type="submit" (click)="signInWithEmail()">Sign In With Email</button>
+    </form>
+  </ng-template>
+</ng-template>

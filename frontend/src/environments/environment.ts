@@ -3,8 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyDD7Lul_yWYzF1jYBSuTJUgMQn4U09UrAI',
+    authDomain: 'oneworldmarathon.firebaseapp.com',
+    databaseURL: 'https://oneworldmarathon.firebaseio.com',
+    projectId: 'oneworldmarathon',
+    storageBucket: 'oneworldmarathon.appspot.com',
+    messagingSenderId: '820477595207',
+  },
+}
 
 /*
  * In development mode, to ignore zone related error stack frames such as
