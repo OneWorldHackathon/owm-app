@@ -14,9 +14,9 @@
     <div class="form-group">
         <label>Meters pledged</label>
         <div class="range-container">
-            <input [(ngModel)]="this.pledgeMetres" [ngModelOptions]="{standalone: true}" type="range" min="100" max="42195" class="range">
+            <input [(ngModel)]="this.pledgeMetres" [ngModelOptions]="{standalone: true}" type="range" min="100" max="41864" class="range">
         </div>
-        <input type="number" min="100" max="42195" [(ngModel)]="this.pledgeMetres" [ngModelOptions]="{standalone: true}" class="text text-small range-number">
+        <input type="number" min="100" max="41864" name="pledge" [(ngModel)]="this.pledgeMetres" [ngModelOptions]="{standalone: true}" class="text text-small range-number">
         <div class="miles">
             = <span class="miles-number">{{pledgeMetres / 1609.344 | number : '1.2-2'}}</span> Miles
         </div>
