@@ -14,37 +14,37 @@ import { ValidationException } from './ValidationException'
 describe('Test Pledge entity', () => {
 
   const VALID_DISTANCE_M = 2000
-
-  it('test uuid must be a valid uuid', async () => {
-    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
+  const VALID_USER_ID = '123-User'
+  it('test uuid must be a valid uuid', () => {
+    const pledge = Pledge.newInstance(VALID_USER_ID, VALID_DISTANCE_M)
     expect(pledge.validate.length).to.be.eq(0)
   })
 
   it('test undefined distance not allowed', () => {
-    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
+    const pledge = Pledge.newInstance(VALID_USER_ID, VALID_DISTANCE_M)
     const data: any = pledge.toPledgeData()
     data.distanceMetres = undefined
     expect(() => {
       Pledge.fromJSON(data)
     }).to.throw(ValidationException)
   })
-  it('test distance is set properly', async () => {
-    const pledge = Pledge.newInstance(VALID_DISTANCE_M)
+  it('test distance is set properly', () => {
+    const pledge = Pledge.newInstance(VALID_USER_ID, VALID_DISTANCE_M)
     expect(pledge.distanceKm).to.be.eq(Conversions.metresToKilometres(VALID_DISTANCE_M))
   })
-  it('test distance cannot exceed 26.2 miles', async () => {
+  it('test distance cannot exceed 26.2 miles', () => {
     expect(() => {
-      Pledge.newInstance(Conversions.milesToMetres(26.3))
+      Pledge.newInstance(VALID_USER_ID, Conversions.milesToMetres(26.3))
     }).to.throw(ValidationException)
   })
-  it('test distance cannot be less than 500 metres', async () => {
+  it('test distance cannot be less than 100 metres', () => {
     expect(() => {
-      Pledge.newInstance(499)
+      Pledge.newInstance(VALID_USER_ID, 99)
     }).to.throw(ValidationException)
   })
-  it('test distance can be exactly 500 metres', async () => {
+  it('test distance can be exactly 100 metres', () => {
     expect(() => {
-      Pledge.newInstance(499)
+      Pledge.newInstance(VALID_USER_ID, 99)
     }).to.throw(ValidationException)
   })
 

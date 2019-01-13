@@ -32,10 +32,10 @@ export async function createPledge(pledgeForm: PledgeForm, userRepo: Repository<
     console.error('Cannot create a pledge for a User that does not exist', pledgeForm)
     return false
   }
-  user.lastName = pledgeForm.lastName
-  user.firstName = pledgeForm.firstName
+  user.displayName = pledgeForm.userDisplayName
   user.yearOfBirth = Number(pledgeForm.yearOfBirth)
-  const pledge: Pledge = Pledge.newInstance(pledgeForm.pledge)
+  user.location = pledgeForm.location
+  const pledge: Pledge = Pledge.newInstance(user.id(), pledgeForm.pledge)
   console.log(pledge)
   await repo.create(pledge)
   await userRepo.update(user)

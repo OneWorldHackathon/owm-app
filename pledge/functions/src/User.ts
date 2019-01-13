@@ -6,6 +6,7 @@ import { DocumentData } from '@google-cloud/firestore'
 import { toFirestore, removeUndefinedProperties } from './utils'
 
 import { EntityBase } from './EntityBase'
+import { Location } from './PledgeForm'
 /* Represents the persistence and transfer shape of a User Entity */
 export type UserData = {
   readonly id: string,
@@ -13,9 +14,8 @@ export type UserData = {
   readonly displayName: string,
   readonly profileUrl: string | undefined,
   readonly createdAt: Date,
-  readonly lastName: string | undefined,
-  readonly firstName: string | undefined,
   readonly yearOfBirth: number | undefined,
+  readonly location: Location | undefined,
 }
 export class User extends EntityBase {
 
@@ -24,7 +24,7 @@ export class User extends EntityBase {
 
   @IsString()
   @IsNotEmpty()
-  readonly displayName: string
+  private _displayName: string
 
   @IsDate()
   readonly createdAt: Date
@@ -34,16 +34,11 @@ export class User extends EntityBase {
   readonly profileURL: string | undefined
 
   @IsOptional()
-  @IsString()
-  _firstName: string | undefined
-
-  @IsOptional()
-  @IsString()
-  _lastName: string | undefined
-
-  @IsOptional()
   @IsInt()
   _yearOfBirth: number | undefined
+
+  @IsOptional()
+  _location: Location | undefined
 
   private constructor(_id: string, createdAt: Date, email: string,
                       displayName: string, profileURL?: string) {
@@ -51,28 +46,41 @@ export class User extends EntityBase {
     super(_id)
     this.email = email
     this.createdAt = createdAt
-    this.displayName = displayName
+    this._displayName = displayName
     this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
+      console.log(valid)
       throw new ValidationException(valid)
     }
   }
 
-  static newInstance(id: string, email: string, displayName: string, profileURL: string) {
+  static newInstance(id: string, email: string, displayName: string, profileURL?: string) {
     return new User(id, new Date, email, displayName, profileURL)
   }
 
-  set firstName(val: string) {
-    this.firstName = val
+  set displayName(val: string) {
+    this._displayName = val
   }
 
-  set lastName(val: string) {
-    this.lastName = val
+  get displayName() {
+    return this._displayName
   }
 
-  set yearOfBirth(val: number) {
+  set yearOfBirth(val: number | undefined) {
     this.yearOfBirth = val
+  }
+
+  get yearOfBirth() {
+    return this._yearOfBirth
+  }
+
+  set location(val: Location | undefined) {
+    this.location = val
+  }
+
+  get location() {
+    return this._location
   }
 
   toUserData(): UserData {
@@ -82,9 +90,8 @@ export class User extends EntityBase {
       createdAt: this.createdAt,
       displayName: this.displayName,
       profileUrl: this.profileURL,
-      lastName: this._lastName,
-      firstName: this._firstName,
       yearOfBirth: this._yearOfBirth,
+      location: this._location,
     }
     return removeUndefinedProperties(o) as UserData
   }
