@@ -12,7 +12,7 @@ export type UserData = {
   readonly id: string,
   readonly email: string,
   readonly displayName: string,
-  readonly profileUrl: string | undefined,
+  readonly profileURL: string | undefined,
   readonly createdAt: Date,
   readonly yearOfBirth: number | undefined,
   readonly location: Location | undefined,
@@ -24,7 +24,7 @@ export class User extends EntityBase {
 
   @IsString()
   @IsNotEmpty()
-  private _displayName: string
+  displayName: string
 
   @IsDate()
   readonly createdAt: Date
@@ -35,10 +35,10 @@ export class User extends EntityBase {
 
   @IsOptional()
   @IsInt()
-  _yearOfBirth: number | undefined
+  yearOfBirth: number | undefined
 
   @IsOptional()
-  _location: Location | undefined
+  location: Location | undefined
 
   private constructor(_id: string, createdAt: Date, email: string,
                       displayName: string, profileURL?: string) {
@@ -46,7 +46,7 @@ export class User extends EntityBase {
     super(_id)
     this.email = email
     this.createdAt = createdAt
-    this._displayName = displayName
+    this.displayName = displayName
     this.profileURL = profileURL
     const valid = this.validate()
     if (valid.length > 0) {
@@ -59,45 +59,24 @@ export class User extends EntityBase {
     return new User(id, new Date, email, displayName, profileURL)
   }
 
-  set displayName(val: string) {
-    this._displayName = val
-  }
-
-  get displayName() {
-    return this._displayName
-  }
-
-  set yearOfBirth(val: number | undefined) {
-    this.yearOfBirth = val
-  }
-
-  get yearOfBirth() {
-    return this._yearOfBirth
-  }
-
-  set location(val: Location | undefined) {
-    this.location = val
-  }
-
-  get location() {
-    return this._location
-  }
-
   toUserData(): UserData {
     const o: UserData = {
       id: this.id(),
       email: this.email,
       createdAt: this.createdAt,
       displayName: this.displayName,
-      profileUrl: this.profileURL,
-      yearOfBirth: this._yearOfBirth,
-      location: this._location,
+      profileURL: this.profileURL,
+      yearOfBirth: this.yearOfBirth,
+      location: this.location,
     }
     return removeUndefinedProperties(o) as UserData
   }
 
   static fromJSON(o: UserData) {
-    return new User(o.id, o.createdAt, o.email, o.displayName)
+    const user = new User(o.id, o.createdAt, o.email, o.displayName, o.profileURL)
+    user.location = o.location
+    user.yearOfBirth = o.yearOfBirth
+    return user
   }
 
   toFirestore(): DocumentData {
