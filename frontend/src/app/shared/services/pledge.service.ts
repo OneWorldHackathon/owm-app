@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore'
+import { AngularFirestore, DocumentReference, DocumentSnapshot } from '@angular/fire/firestore'
 import { AuthService } from './auth.service'
-import { take } from 'rxjs/operators'
+import { take, flatMap, map } from 'rxjs/operators'
 
 export type Totals = {
   participants: number,
@@ -30,17 +30,21 @@ export type Location = {
 })
 export class PledgeService {
 
-  constructor(private db: AngularFirestore,
-              private authService: AuthService) {}
+  constructor(
+    private db: AngularFirestore,
+    private authService: AuthService,
+  ) { }
 
   public getTotals(): Observable<Totals | undefined> {
-    return this.db.collection('publicStats')
+    return this.db.collection('publicView')
       .doc<Totals>('top-level')
       .valueChanges()
   }
 
-  public async createPledge(name: string, yearOfBirth: string,
-                            pledge: number, location: Location): Promise<DocumentReference> {
+  public async createPledge(
+    name: string, yearOfBirth: string,
+    pledge: number, location: Location,
+  ): Promise<DocumentReference> {
     const user = await this.authService.getUser().pipe(take(1)).toPromise()
     if (user == null) {
       throw new Error('User must be logged in to create a pledge')
@@ -54,4 +58,13 @@ export class PledgeService {
         userId: user.userId,
       })
   }
+
+  public getGlobeData(): Observable<number[] | undefined> {
+    return this.db.collection('publicView')
+      .doc<{ values: number[] }>('globe')
+      .valueChanges().pipe(
+        map((doc: { values: number[] }) => doc.values),
+      )
+  }
+
 }
