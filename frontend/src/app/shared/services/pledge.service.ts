@@ -34,7 +34,7 @@ export class PledgeService {
               private authService: AuthService) {}
 
   public getTotals(): Observable<Totals | undefined> {
-    return this.db.collection('publicStats')
+    return this.db.collection('publicView')
       .doc<Totals>('top-level')
       .valueChanges()
   }
