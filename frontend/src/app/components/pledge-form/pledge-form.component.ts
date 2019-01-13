@@ -13,6 +13,7 @@ import { PledgeService } from '@shared/services/pledge.service'
 })
 export class PledgeFormComponent implements OnInit {
 
+  public pledgeMetres: number = 100
   public pledgeForm: FormGroup | null = null
   @ViewChild('location')
   public locationSearch: ElementRef
