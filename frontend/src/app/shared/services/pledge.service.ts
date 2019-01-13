@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore'
-import { Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { AuthService } from './auth.service'
-import { map } from 'rxjs/operators'
+import { map, take, catchError } from 'rxjs/operators'
 
 export type DistanceByCountry = {
   readonly distanceKm: number,
@@ -62,6 +62,7 @@ export class PledgeService {
     if (userId == null) {
       throw new Error('User must be logged in to create a pledge')
     }
+    console.log('Creating pledge...')
     return this.db.collection<PledgeForm>('pledgeForm')
       .add({
         yearOfBirth,
@@ -78,6 +79,22 @@ export class PledgeService {
       .valueChanges().pipe(
         map((doc: { values: number[] }) => doc.values),
       )
+  }
+
+  public async hasUserPledged(): Promise<boolean> {
+    const userId = await this.authService.getUserId()
+    if (userId == null) {
+      throw new Error('User must be logged in to check pledge status')
+    }
+    return this.db.collection('pledgeForm', ref =>
+      ref.where('userId', '==', userId))
+      .valueChanges()
+      .pipe(
+        take(1),
+        map(form => (form && form.length > 0)),
+        catchError(err => of(false)),
+      )
+      .toPromise()
   }
 
 }
