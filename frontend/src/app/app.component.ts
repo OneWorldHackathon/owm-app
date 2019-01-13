@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   public signedIn: boolean = false
   public totals: Totals
+  public mostRecent10Pledges: String[]
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }
@@ -20,6 +21,11 @@ export class AppComponent implements OnInit {
     this.pledgeService.getTotals().subscribe(totals => {
       if (totals !== undefined) {
         this.totals = totals
+      }
+    })
+    this.pledgeService.getMostRecent10().subscribe(recent10 => {
+      if (recent10 !== undefined) {
+        this.mostRecent10Pledges = recent10
       }
     })
     this.authService.getUser().subscribe(user => {

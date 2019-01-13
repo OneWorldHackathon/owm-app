@@ -4,6 +4,9 @@
   <li>{{totals.distanceKm}} km pledged</li>
   <li>in {{totals.countries.length}} countr{{totals.countries.length === 1 ? 'y' : 'ies'}}</li>
 </ul>
+<ul *ngIf="mostRecent10Pledges">
+  <li ngFor="pledge of mostRecent10Pledges">{{pledge}}</li>
+</ul>
 <ng-template #showPledgeForm>
   <app-pledge-form></app-pledge-form>
 </ng-template>

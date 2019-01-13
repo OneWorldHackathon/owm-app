@@ -33,6 +33,12 @@ export class PledgeService {
   constructor(private db: AngularFirestore,
               private authService: AuthService) {}
 
+  public getMostRecent10(): Observable<String[] | undefined> {
+    return this.db.collection('publicView')
+      .doc<String[]>('most-recent-10-pledges')
+      .valueChanges()
+  }
+
   public getTotals(): Observable<Totals | undefined> {
     return this.db.collection('publicView')
       .doc<Totals>('top-level')
