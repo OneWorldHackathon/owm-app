@@ -27,7 +27,8 @@ export class GlobeComponent implements OnInit {
           const globe = datGlobe(container, {
             imgDir: '/assets/globe/',
             backgroundColor: 0x008000,
-            colorFn: (x: number) => new Color(1.0, 1.0, x * 4),
+            atmColor: [0.0, 0.0, 1.0, 1.0],
+            colorFn: (x: number) => new Color(1.0, 0.5, x * 3),
           })
 
           globe.addData(
