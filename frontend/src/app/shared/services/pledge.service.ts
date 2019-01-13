@@ -45,7 +45,7 @@ export class PledgeService {
     if (user == null) {
       throw new Error('User must be logged in to create a pledge')
     }
-    return this.db.collection<PledgeForm>('pledges')
+    return this.db.collection<PledgeForm>('pledgeForms')
       .add({
         yearOfBirth,
         pledge,

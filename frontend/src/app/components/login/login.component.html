@@ -14,7 +14,7 @@
     <button (click)="signInWithGoogle()">Sign In With Google</button>
     <button (click)="signInWithTwitter()">Sign In With Twitter</button>
     <span>Or sign in with your email</span>
-    <form [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
+    <form *ngIf="emailSignInForm" [formGroup]="emailSignInForm" (ngSubmit)="signInWithEmail()">
       <input type="email" autocomplete="email" formControlName="email" />
       <button type="submit" (click)="signInWithEmail()">Sign In With Email</button>
     </form>
