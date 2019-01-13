@@ -52,14 +52,18 @@ export class AuthService {
   }
 
   async checkSignInWithEmailLink(): Promise<auth.UserCredential | null> {
-    if (this.auth.auth.isSignInWithEmailLink(window.location.href)) {
-      let email = window.localStorage.getItem('emailForSignIn')
-      if (!email) {
-        email = window.prompt('Please provide your email for confirmation')
+    try {
+      if (this.auth.auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn')
+        if (!email) {
+          email = window.prompt('Please provide your email for confirmation')
+        }
+        if (email) {
+          return await this.auth.auth.signInWithEmailLink(email, window.location.href)
+        }
       }
-      if (email) {
-        return await this.auth.auth.signInWithEmailLink(email, window.location.href)
-      }
+    } catch (e) {
+      console.error('Sign in with email link', e)
     }
     return null
   }

@@ -19,7 +19,10 @@ export class LoginComponent implements OnInit {
               private fb: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
-    await this.authService.checkSignInWithEmailLink()
+    const cred = await this.authService.checkSignInWithEmailLink()
+    if (cred) {
+      scrollToPledge()
+    }
     this.authService.getUser().subscribe(profile => {
       this.profile = profile
     })
