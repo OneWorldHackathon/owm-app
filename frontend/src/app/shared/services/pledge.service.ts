@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core'
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore'
 import { Observable } from 'rxjs'
-import { AngularFirestore, DocumentReference, DocumentSnapshot } from '@angular/fire/firestore'
 import { AuthService } from './auth.service'
-import { take, flatMap, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 
-export type Totals = {
-  participants: number,
-  participantsByCountry: any,
-  countries: string[],
-  distanceKm: number,
-  distanceMiles: number,
-  distanceByCountry: any,
+export type DistanceByCountry = {
+  readonly distanceKm: number,
+  readonly distanceMiles: number,
 }
 
 export type MostRecent10 = {
   values: string[],
+}
+
+export type PublicView = {
+  readonly countries: string[],
+  readonly distanceByCountry: { [key: string]: DistanceByCountry }
+  readonly distanceKm: number,
+  readonly distanceMiles: number,
+  readonly particpants: number,
+  readonly particpantsByCountry: { [key: string]: number },
 }
 
 export type PledgeForm = {
@@ -45,18 +50,16 @@ export class PledgeService {
       .valueChanges()
   }
 
-  public getTotals(): Observable<Totals | undefined> {
+  public getTotals(): Observable<PublicView | undefined> {
     return this.db.collection('publicView')
-      .doc<Totals>('top-level')
+      .doc<PublicView>('top-level')
       .valueChanges()
   }
 
-  public async createPledge(
-    name: string, yearOfBirth: string,
-    pledge: number, location: Location,
-  ): Promise<DocumentReference> {
-    const user = await this.authService.getUser().pipe(take(1)).toPromise()
-    if (user == null) {
+  public async createPledge(name: string, yearOfBirth: string,
+                            pledge: number, location: Location): Promise<DocumentReference> {
+    const userId = await this.authService.getUserId()
+    if (userId == null) {
       throw new Error('User must be logged in to create a pledge')
     }
     return this.db.collection<PledgeForm>('pledgeForm')
@@ -64,8 +67,8 @@ export class PledgeService {
         yearOfBirth,
         pledge,
         location,
+        userId,
         userDisplayName: name,
-        userId: user.userId,
       })
   }
 

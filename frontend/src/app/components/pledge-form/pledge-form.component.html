@@ -1,9 +1,9 @@
-<form *ngIf="pledgeForm != null"  [formGroup]="pledgeForm" >
+<form *ngIf="pledgeForm != null" ngNativeValidate [formGroup]="pledgeForm" >
   <label for="name">Name</label>
-  <input name="name" id="name" formControlName="name" type="text" autocomplete="name"/>
+  <input name="name" id="name" required formControlName="name" type="text" autocomplete="name"/>
   <label for="yearOfBirth">Year of Birth</label>
-  <input name="yearOfbirth" id="yearOfBirth" formControlName="yearOfBirth" type="number" autocomplete="bday-year"/>
+  <input name="yearOfbirth" id="yearOfBirth" max="2005" min="1900" required formControlName="yearOfBirth" type="number" autocomplete="bday-year"/>
   <label for="location">Location (City/Town)</label>
-  <input name="location" #location id="location"/>
-  <button (click)="submitPledge()"></button>
+  <input name="location" required #location id="location"/>
+  <button type="submit" (click)="submitPledge()">Pledge</button>
 </form>
