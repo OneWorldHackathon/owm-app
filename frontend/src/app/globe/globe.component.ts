@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { PledgeData } from './Pledge';
 
 @Component({
   selector: 'app-globe',
@@ -7,25 +8,21 @@ import { Component, OnInit } from '@angular/core'
 })
 export class GlobeComponent implements OnInit {
 
-  constructor() { }
+  // readonly pledgeCollection : CollectionReference // typename TBC
 
-  ngOnInit(): void {
+  constructor(
+    // db : FireStoreDB,
+  ) {
+    // this.pledgeCollection = db.collection('publicPledges') // collection name TBC
+  }
+
+  async ngOnInit(): Promise<void> {
     const container: HTMLElement | null = document.getElementById('globeContainer')
 
-    console.log('ffff', JSON.stringify(container))
-
     if (window['DAT'] && window['DAT']['Globe'] && window['TWEEN']) {
-      console.log('gggg')
+
       const datGlobe = window['DAT']['Globe']
       const tween = window['TWEEN']
-
-      const  globe = datGlobe(container, { imgDir : '/assets/globe/' })
-
-      console.log('globe', globe)
-
-      // let i, tweens = []
-
-      tween.start()
 
       const data =
         [6, 159, 0.001, 30, 99, 0.002, 45, -109, 0.000, 42, 115, 0.007, 4, -54, 0.000,
@@ -38,13 +35,27 @@ export class GlobeComponent implements OnInit {
           52, 9, 0.056, 10, 120, 0.004, 24, 87, 0.134, 0, -51, 0.005, -5, 123, 0.013,
         ]
 
+      // const pledgeData: PledgeData[] = 
+      //   await this.pledgeCollection.orderby('createdAt').limit(1000)
+      // const data: number[] = concatMap(
+      //   pledgeData,
+      //   (p: PledgeData) => [p.location.lat, p.location.lng, p.distanceMetres]
+      // )
+
+      const globe = datGlobe(container, { imgDir: '/assets/globe/' })
+
+      // let i, tweens = []
+
+      tween.start()
+
       globe.addData(
         data,
-        { format: 'magnitude',
+        {
+          format: 'magnitude',
           name: 'pledges',
           // animated: true,
         },
-        )
+      )
 
       globe.createPoints()
 
@@ -56,7 +67,21 @@ export class GlobeComponent implements OnInit {
 
       globe.animate()
 
-    // document.body.style.backgroundImage = 'none' // remove loading
+      // document.body.style.backgroundImage = 'none' // remove loading
     }
   }
+}
+
+const isArray = Array.isArray || function (xs: any): boolean {
+  return Object.prototype.toString.call(xs) === '[object Array]'
+}
+
+export function concatMap<I, O>(xs: I[], fn: (element: I, index?: number) => O | O[]): O[] {
+  const res: O[] = []
+  for (let i = 0; i < xs.length; i = i + 1) {
+    const x: O | O[] = fn(xs[i], i)
+    if (isArray(x)) res.push.apply(res, x)
+    else res.push(x)
+  }
+  return res
 }
