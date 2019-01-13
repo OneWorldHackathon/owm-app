@@ -18,7 +18,7 @@ export type PledgeData = {
 }
 export class Pledge extends EntityBase {
 
-  @Min(100) @Max(42164.8128)
+  @Min(100) @Max(41864.8128)
   private readonly _distanceMetres: number
   readonly location: Location
   readonly userProfile: string
