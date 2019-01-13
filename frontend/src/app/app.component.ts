@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   public signedIn: boolean = false
   public totals: Totals
-  public mostRecent10Pledges: String[]
+  public mostRecent10Pledges: string[]
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }

@@ -14,7 +14,7 @@ export type Totals = {
 }
 
 export type MostRecent10 = {
-  values: String[],
+  values: string[],
 }
 
 export type PledgeForm = {
@@ -55,7 +55,7 @@ export class PledgeService {
     if (user == null) {
       throw new Error('User must be logged in to create a pledge')
     }
-    return this.db.collection<PledgeForm>('pledgeForms')
+    return this.db.collection<PledgeForm>('pledgeForm')
       .add({
         yearOfBirth,
         pledge,
