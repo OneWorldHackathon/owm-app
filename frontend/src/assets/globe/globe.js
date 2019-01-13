@@ -146,8 +146,6 @@ DAT.Globe = function(container, opts) {
 
     renderer = new THREE.WebGLRenderer({antialias: true});
 
-    console.log('opts',opts);
-
     renderer.setClearColor( opts.backgroundColor !== undefined ? opts.backgroundColor : 0x000000, 0);
     renderer.setSize(w, h);
 
