@@ -13,6 +13,7 @@ import { PledgeService } from '@shared/services/pledge.service'
 })
 export class PledgeFormComponent implements OnInit {
 
+  public pledgeMetres: number = 100
   public pledgeForm: FormGroup | null = null
   @ViewChild('location')
   public locationSearch: ElementRef
@@ -79,7 +80,8 @@ export class PledgeFormComponent implements OnInit {
   async submitPledge(): Promise<void> {
     if (this.pledgeForm != null && this.pledgeForm.valid) {
       const val = this.pledgeForm.getRawValue()
-      await this.pledgeService.createPledge(val.name, val.yearOfBirth, val.pledge, val.location)
+      await this.pledgeService.createPledge(val.name, val.yearOfBirth,
+                                            this.pledgeMetres, val.location)
     }
   }
 }
