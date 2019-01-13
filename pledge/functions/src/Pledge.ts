@@ -21,6 +21,9 @@ export class Pledge extends EntityBase {
   @Min(100) @Max(42164.8128)
   private readonly _distanceMetres: number
   readonly location: Location
+
+  @IsString()
+  @IsNotEmpty()
   readonly userProfile: string
 
   @IsString()
