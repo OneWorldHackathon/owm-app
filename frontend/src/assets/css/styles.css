@@ -216,7 +216,7 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
     100% { -webkit-transform: translate3d(-100%, 0, 0); transform: translate3d(-100%, 0, 0) }
 }
 #ticker { position: fixed; bottom: 0; width: 100%; overflow: hidden; height: 72px; background-color: #6FC3B7; padding-left: 100%; box-sizing: content-box; z-index: 2000 }
-#ticker .ticker { display: inline-block; height: 72px; line-height: 72px; white-space: nowrap; padding-right: 100%; box-sizing: content-box; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-name: ticker; animation-name: ticker; -webkit-animation-duration: 30s; animation-duration: 30s;
+#ticker .ticker { display: inline-block; height: 72px; line-height: 72px; white-space: nowrap; padding-right: 100%; box-sizing: content-box; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-name: ticker; animation-name: ticker; -webkit-animation-duration: 60s; animation-duration: 60s;
 }
 #ticker .ticker-item { display: inline-block; font-size: 24px; height: 72px; line-height: 72px; color: #00324D; padding: 0 27px }
 #ticker .ticker-item:nth-child(2) { color: #FFF }
