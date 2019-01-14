@@ -15,8 +15,13 @@ export async function computeTotalParticipants(
   const beforeData: DocumentData | undefined = change.before.data()
   const afterData: DocumentData | undefined = change.after.data()
 
-  if (beforeData === undefined || afterData === undefined) {
-    console.error('User data absent')
+  if (beforeData === undefined) {
+    console.log('Before User data absent, nothing to do')
+    return
+  }
+  if (afterData === undefined) {
+    console.error('User data not found')
+    return
   }
 
   const userBefore = beforeData as UserData
@@ -80,7 +85,7 @@ export async function computeTotalParticipants(
       if (!(country in aggregates.participantsByCountry)) {
         aggregates.participantsByCountry[country] = 1
       } else {
-        aggregates.participantsByCountry += 1
+        aggregates.participantsByCountry[country] += 1
       }
     }
     console.log('about to persist aggregates', aggregates)
