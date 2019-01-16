@@ -24,6 +24,6 @@
       <input type="email" class="text text-medium" autocomplete="email" formControlName="email" />
       <span class="error" *ngIf="emailSignInForm.get('email').invalid && emailSignInForm.get('email').touched">Please enter a valid email</span>
     </div>
-    <button type="submit" class="btn" (click)="signInWithEmail()">Sign In With Email</button>
+    <button type="submit" class="btn">Sign In With Email</button>
   </form>
 </ng-template>

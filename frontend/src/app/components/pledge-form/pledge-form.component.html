@@ -16,7 +16,7 @@
       <button (click)="signOut()" class="btn btn-orange">Sign Out</button>
     </div>
   </ng-container>
-  <form *ngIf="pledgeForm != null && profile" [formGroup]="pledgeForm">
+  <form *ngIf="pledgeForm != null && profile" [formGroup]="pledgeForm" (keydown.enter)="$event.preventDefault()">
     <div class="form-group">
       <label for="name">Name</label>
       <input name="name" id="name" required formControlName="name" autocomplete="name" type="text" class="text text-medium"

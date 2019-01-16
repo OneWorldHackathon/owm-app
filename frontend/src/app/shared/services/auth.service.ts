@@ -60,7 +60,7 @@ export class AuthService {
           email = window.prompt('Please provide your email for confirmation')
         }
         if (email) {
-          return await this.auth.auth.signInWithEmailLink(email, window.location.href)
+          return this.auth.auth.signInWithEmailLink(email, window.location.href)
         }
       }
     } catch (e) {
