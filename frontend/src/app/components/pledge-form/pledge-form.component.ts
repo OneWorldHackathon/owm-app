@@ -71,12 +71,14 @@ export class PledgeFormComponent implements OnInit {
             const country =  place.address_components.find(address =>
                   address.types.includes('country'))
             this.pledgeForm!.patchValue({location: {
-              description: locality ? locality.long_name : 'Unknown',
+              description: locality ? `${locality.long_name}${
+                country ? ', ' + country.short_name : '' }` : 'Unknown',
               lat: place.geometry.location.lat(),
               lng: place.geometry.location.lng(),
-              countryCode: country ? country.short_name : 'Unkown',
+              countryCode: country ? country.short_name : 'Unknown',
             }})
             this.pledgeForm.get('location')!.markAsTouched()
+            this.pledgeForm.get('location')!.markAsDirty()
           }
         }
         console.log(this.pledgeForm!.value)
