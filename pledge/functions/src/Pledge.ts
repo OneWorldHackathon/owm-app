@@ -38,6 +38,7 @@ export class Pledge extends EntityBase {
     this.userProfile = userProfile
     const valid = this.validate()
     if (valid.length > 0) {
+      console.error('Validation error', valid)
       throw new ValidationException(valid)
     }
   }

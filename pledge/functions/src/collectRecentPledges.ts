@@ -22,6 +22,10 @@ export async function collectRecentPledges(
   const repo = new CloudFirestorePledgeRepository()
   const top10Pledges: Pledge[] = await repo.findMostRecent(10)
   const top1000Pledges: Pledge[] = await repo.findMostRecent(1000)
+  if (top10Pledges.length < 1) {
+    console.error('No pledges found')
+    return
+  }
   const top10Values = top10Pledges.map((p) => {
     return p.userProfile.trim().split(' ')[0] + ' from ' + p.location.description + ' just pledged '
       + Math.round(p.distanceMiles * 100) / 100 + ' miles'

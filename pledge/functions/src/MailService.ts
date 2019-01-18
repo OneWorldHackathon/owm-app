@@ -1,6 +1,5 @@
 import * as SendGrid from '@sendgrid/mail'
 import * as functions from 'firebase-functions'
-SendGrid.setApiKey(`${functions.config().sendgrid.key}`)
 
 export interface EmailService {
   send(templateId: string, to: string,
@@ -9,6 +8,9 @@ export interface EmailService {
 
 export class SendGridEmailService implements EmailService {
 
+  constructor() {
+    SendGrid.setApiKey(`${functions.config().sendgrid.key}`)
+  }
   send(templateId: string, to: string,
        vars: { [_: string]: any }): Promise<void> {
     return sendEmail(templateId, to, vars)
@@ -18,7 +20,6 @@ export class SendGridEmailService implements EmailService {
 export async function sendEmail(templateId: string, to: string,
                                 vars: { [_: string]: any }): Promise<void> {
   console.log('sendEmail to ', to)
-  console.log('KEY ' + `${functions.config().sendgrid.key}`)
   const msg = {
     to,
     templateId,

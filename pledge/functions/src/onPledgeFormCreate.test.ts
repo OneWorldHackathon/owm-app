@@ -9,10 +9,9 @@ import { EmailService, SendGridEmailService } from './MailService'
 import { Repository } from './Repository'
 import { CloudFirestoreUserRepository } from './UserRepository'
 import { User } from './User'
-import { CloudFirestorePledgeRepository } from './PledgeRepository'
-import { Pledge } from './Pledge'
 import { PledgeForm } from './PledgeForm'
 import { createPledge } from './onPledgeFormCreate'
+const firebasemock = require('firebase-mock')
 
 describe('Test onPledgeFormCreate', () => {
 
@@ -22,8 +21,8 @@ describe('Test onPledgeFormCreate', () => {
       sinon.createStubInstance<EmailService>(SendGridEmailService)
     const stubUserRepo =
       sinon.createStubInstance<Repository<User>>(CloudFirestoreUserRepository)
-    const stubPledgeRepo =
-      sinon.createStubInstance<Repository<Pledge>>(CloudFirestorePledgeRepository)
+
+    const mockfirestore = new firebasemock.MockFirestore()
 
     const user: User = User.newInstance('123-User', 'dev@oneworldhackathon.org', 'Dev User')
     stubUserRepo.find.returns(user)
@@ -34,9 +33,8 @@ describe('Test onPledgeFormCreate', () => {
       pledge: 500,
       location: { countryCode: 'GB', description: 'United Kingdom', lat: 58.4, lng: -2.8 },
     }
-    await createPledge('pledge-form-id', pledgeForm, stubUserRepo, stubPledgeRepo, stubEmailService)
-    expect(stubPledgeRepo.create.calledOnce).to.equal(true)
-    expect(stubUserRepo.update.calledOnce).to.equal(true)
+    await createPledge('pledge-form-id', pledgeForm, stubUserRepo, mockfirestore, stubEmailService)
+
     expect(stubUserRepo.find.calledOnce).to.equal(true)
 
   })
