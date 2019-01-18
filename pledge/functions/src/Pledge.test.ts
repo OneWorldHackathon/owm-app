@@ -52,9 +52,9 @@ describe('Test Pledge entity', () => {
   })
   it('test distance can be exactly 100 metres', () => {
     expect(() => {
-      Pledge.newInstance(VALID_USER_ID, 99,
+      Pledge.newInstance(VALID_USER_ID, 100,
                          VALID_LOCATION, VALID_USER_PROFILE)
-    }).to.throw(ValidationException)
+    }).to.not.throw(ValidationException)
   })
 
 })

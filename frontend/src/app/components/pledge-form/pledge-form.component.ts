@@ -35,10 +35,10 @@ export class PledgeFormComponent implements OnInit {
       scrollToPledge()
     }
     this.profile = user
-    this.pledgeForm =  this.fb.group({
+    this.pledgeForm = this.fb.group({
       name: [user.displayName, Validators.required],
       yearOfBirth: ['', [Validators.required, Validators.pattern('^(19[0-9][0-9]|200[0-5])$')]],
-      pledge: ['100', [Validators.required, Validators.min(100), Validators.max(41864)]],
+      pledge: [100, [Validators.required, Validators.min(100), Validators.max(41864)]],
       location: this.fb.group({
         countryCode: ['', Validators.required],
         description: ['', Validators.required],
@@ -62,21 +62,23 @@ export class PledgeFormComponent implements OnInit {
         console.log(place)
         if (place && this.pledgeForm != null) {
           if (place.address_components) {
-            let locality =  place.address_components.find(address =>
-                address.types.includes('locality'))
+            let locality = place.address_components.find(address =>
+              address.types.includes('locality'))
             if (locality == null) {
-              locality =  place.address_components.find(address =>
+              locality = place.address_components.find(address =>
                 address.types.includes('postal_town'))
             }
-            const country =  place.address_components.find(address =>
-                  address.types.includes('country'))
-            this.pledgeForm!.patchValue({location: {
-              description: locality ? `${locality.long_name}${
-                country ? ', ' + country.short_name : '' }` : 'Unknown',
-              lat: place.geometry.location.lat(),
-              lng: place.geometry.location.lng(),
-              countryCode: country ? country.short_name : 'Unknown',
-            }})
+            const country = place.address_components.find(address =>
+              address.types.includes('country'))
+            this.pledgeForm!.patchValue({
+              location: {
+                description: locality ? `${locality.long_name}${
+                  country ? ', ' + country.short_name : ''}` : 'Unknown',
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+                countryCode: country ? country.short_name : 'Unknown',
+              },
+            })
             this.pledgeForm.get('location')!.markAsTouched()
             this.pledgeForm.get('location')!.markAsDirty()
           }

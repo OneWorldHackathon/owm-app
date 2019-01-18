@@ -39,7 +39,10 @@ export async function createPledge(id: string, pledgeForm: PledgeForm, userRepo:
   user.displayName = pledgeForm.userDisplayName
   user.yearOfBirth = Number(pledgeForm.yearOfBirth)
   user.location = pledgeForm.location
-  const pledge: Pledge = Pledge.newInstance(user.id(), pledgeForm.pledge,
+
+  const distance = typeof pledgeForm.pledge === 'number'
+    ? pledgeForm.pledge : Number(pledgeForm.pledge)
+  const pledge: Pledge = Pledge.newInstance(user.id(), distance,
                                             pledgeForm.location, pledgeForm.userDisplayName)
 
   console.log('new Pledge entity', pledge)
