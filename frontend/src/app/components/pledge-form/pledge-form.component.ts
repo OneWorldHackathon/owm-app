@@ -3,7 +3,7 @@ import { MapsAPILoader } from '@agm/core'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService, ProviderProfile } from '@shared/services/auth.service'
-import { take } from 'rxjs/operators'
+import { take, count } from 'rxjs/operators'
 import { PledgeService } from '@shared/services/pledge.service'
 import { scrollToPledge } from '@shared/scrolltopledge'
 
@@ -72,8 +72,7 @@ export class PledgeFormComponent implements OnInit {
               address.types.includes('country'))
             this.pledgeForm!.patchValue({
               location: {
-                description: locality ? `${locality.long_name}${
-                  country ? ', ' + country.short_name : ''}` : 'Unknown',
+                description: this.getDescription(locality, country),
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
                 countryCode: country ? country.short_name : 'Unknown',
@@ -86,6 +85,14 @@ export class PledgeFormComponent implements OnInit {
         console.log(this.pledgeForm!.value)
       })
     }
+  }
+
+  private getDescription(locality?: google.maps.GeocoderAddressComponent,
+                         country?: google.maps.GeocoderAddressComponent): string  {
+    if (locality) {
+      return `${locality.long_name}${country ? ', ' + country.short_name : ''}`
+    }
+    return country ? country.long_name : 'Unknown'
   }
 
   async submitPledge(): Promise<void> {
