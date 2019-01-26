@@ -62,7 +62,10 @@ div, header, footer, section { position: relative }
 
 /* standard content */
 .std-content h2 { font-size: 32px; font-weight: 700; color: #009400; margin-bottom: 26px }
+.std-content h3 { font-size: 26px; font-weight: 700; color: #009400; margin-bottom: 16px }
 .std-content p { margin: 26px 0 26px; line-height: 28px }
+.std-content ul { margin: 26px 0 26px; line-height: 28px }
+.std-content li { padding-left: 30px; list-style: disc }
 
 /* standard form */
 .std-form .form-group { margin-bottom: 34px }
