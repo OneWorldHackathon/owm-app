@@ -32,22 +32,24 @@
     </div>
     <div class="form-group" formGroupName="location">
       <label for="location">Location</label>
-      <input type="text" class="text text-medium" name="location" required #location formControlName="description" id="location" aria-describedby="location-error">
+      <input type="text" class="text text-medium" name="location" required #location formControlName="description" id="location"
+        aria-describedby="location-error">
       <span id="location-error" class="error" *ngIf="shouldShowErrors('location')">Please type and then select your
         location from the list</span>
     </div>
     <div class="form-group">
       <label>Meters pledged</label>
       <div class="range-container">
-        <input name="pledge" type="range" min="100" max="42195" formControlName="pledge"
-          class="range">
+        <input name="pledge" type="range" step="100" min="100" max="42195" formControlName="pledge" class="range">
       </div>
-      <input type="number" [ngModel]="this.pledgeForm.get('pledge').value" name="pledge" min="100" max="42195" formControlName="pledge"
-        class="text text-small range-number"/>
+      <input type="number" [ngModel]="this.pledgeForm.get('pledge').value" name="pledge" min="100" max="42195"
+        formControlName="pledge" class="text text-small range-number" />
       <div class="miles">
-        = <span class="miles-number">{{(this.pledgeForm.get('pledge').value ? this.pledgeForm.get('pledge').value : 0) / 1609.344 | number : '1.2-2'}}</span> Miles
+        = <span class="miles-number">{{(this.pledgeForm.get('pledge').value ? this.pledgeForm.get('pledge').value : 0)
+          / 1609.344 | number : '1.2-2'}}</span> Miles
       </div>
-      <span id="location-error" class="error" *ngIf="shouldShowErrors('pledge')">You can pledge between 100 and 42195 meters.</span>
+      <span id="location-error" class="error" *ngIf="shouldShowErrors('pledge')">You can pledge between 100 and 42195
+        meters.</span>
     </div>
     <button type="submit" (click)="submitPledge()" class="btn btn-green">Sign me up!</button>
   </form>
