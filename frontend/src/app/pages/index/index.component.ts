@@ -14,7 +14,6 @@ export class IndexComponent implements OnInit {
 
   public signedIn: boolean = false
   public totals: PublicView
-  public mostRecent10Pledges: string[]
   public daysUntil: number
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
@@ -43,11 +42,6 @@ export class IndexComponent implements OnInit {
     this.pledgeService.getTotals().subscribe(totals => {
       if (totals !== undefined) {
         this.totals = totals
-      }
-    })
-    this.pledgeService.getMostRecent10().subscribe(recent10 => {
-      if (recent10 !== undefined) {
-        this.mostRecent10Pledges = recent10.values
       }
     })
   }
