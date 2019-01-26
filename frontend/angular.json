@@ -28,8 +28,7 @@
               "src/mstile-144x144.png",
               "src/mstile-150x150.png",
               "src/mstile-310-150.png",
-              "src/mstile-310-310.png",
-              "src/privacy-policy.html"
+              "src/mstile-310-310.png"
             ],
             "styles": [
               "src/styles.css"

@@ -15,6 +15,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component'
 import { AppRoutingModule } from './/app-routing.module'
 import { IndexComponent } from './pages/index/index.component'
+import { TermsComponent } from './pages/terms/terms.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IndexComponent } from './pages/index/index.component'
     ConfirmationComponent,
     PrivacyPolicyComponent,
     IndexComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
