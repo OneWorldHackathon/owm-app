@@ -19,7 +19,7 @@ export class SendGridEmailService implements EmailService {
 
 export async function sendEmail(templateId: string, to: string,
                                 vars: { [_: string]: any }): Promise<void> {
-  console.log('sendEmail to ', to)
+  console.log('sendEmail to ', to, functions.config().sendgrid)
   const msg = {
     to,
     templateId,

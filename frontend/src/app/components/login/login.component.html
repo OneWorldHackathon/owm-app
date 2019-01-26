@@ -10,8 +10,8 @@
   </div>
   <div class="buttons clearfix">
     <a href="javascript:void" class="btn-oauth btn-oauth-google" (click)="signInWithGoogle()">Sign in using Google</a>
-    <a href="javascript:void" class="btn-oauth btn-oauth-facebook" (click)="signInWithFacebook()">Sign in using
-      Facebook</a>
+    <!--<a href="javascript:void" class="btn-oauth btn-oauth-facebook" (click)="signInWithFacebook()">Sign in using
+      Facebook</a>-->
   </div>
 
   <div class="std-content">
@@ -22,7 +22,8 @@
     <div class="form-group">
       <label for="email">Email Address</label>
       <input type="email" class="text text-medium" autocomplete="email" formControlName="email" />
-      <span class="error" *ngIf="emailSignInForm.get('email').invalid && emailSignInForm.get('email').touched">Please enter a valid email</span>
+      <span class="error" *ngIf="emailSignInForm.get('email').invalid && emailSignInForm.get('email').touched">Please
+        enter a valid email</span>
     </div>
     <button type="submit" class="btn">Sign In With Email</button>
   </form>
