@@ -6,6 +6,7 @@ import { TermsComponent } from '@pages/terms/terms.component'
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
+  { path: 'signInWithEmail', component: IndexComponent },
   { path: 'privacy', component: PrivacyPolicyComponent },
   { path: 'terms', component: TermsComponent },
 ]
