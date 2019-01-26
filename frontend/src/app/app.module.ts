@@ -10,7 +10,7 @@ import { LoginComponent } from './components/login/login.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { PledgeFormComponent } from './components/pledge-form/pledge-form.component'
 
-import { GlobeComponent } from './globe/globe.component';
+import { GlobeComponent } from './globe/globe.component'
 import { ConfirmationComponent } from './components/confirmation/confirmation.component'
 
 @NgModule({

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   public signedIn: boolean = false
   public totals: PublicView
   public mostRecent10Pledges: string[]
-  public daysUntil
+  public daysUntil: number
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }
