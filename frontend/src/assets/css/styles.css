@@ -60,12 +60,18 @@ div, header, footer, section { position: relative }
 .block { margin-top: 60px }
 .sub-block { padding-bottom: 60px }
 
+/* top content */
+.top-content { padding-top:80px !important; }
+
 /* standard content */
+.std-content h1,
 .std-content h2 { font-size: 32px; font-weight: 700; color: #009400; margin-bottom: 26px }
 .std-content h3 { font-size: 26px; font-weight: 700; color: #009400; margin-bottom: 16px }
 .std-content p { margin: 26px 0 26px; line-height: 28px }
 .std-content ul { margin: 26px 0 26px; line-height: 28px }
-.std-content li { padding-left: 30px; list-style: disc }
+.std-content li { margin-left: 40px; list-style: disc }
+.std-content a { font-weight: 700; color: #368340 }
+.std-content a:hover { text-decoration: underline }
 
 /* standard form */
 .std-form .form-group { margin-bottom: 34px }
