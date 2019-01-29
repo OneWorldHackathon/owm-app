@@ -1,8 +1,56 @@
-<form *ngIf="pledgeForm != null" [formGroup]="pledgeForm" >
-  <label for="name">Name</label>
-  <input name="name" id="name" formControlName="name" type="text" autocomplete="name"/>
-  <label for="yearOfBirth">Year of Birth</label>
-  <input name="yearOfbirth" id="yearOfBirth" formControlName="yearOfBirth" type="number" autocomplete="bday-year"/>
-  <label for="location">Location (City/Town)</label>
-  <input name="location" #location id="location"/>
-</form>
+<ng-container *ngIf="pledged; then confirmation; else showForm"></ng-container>
+<ng-template #confirmation>
+  <app-confirmation *ngIf="profile" [profile]="profile"></app-confirmation>
+</ng-template>
+<ng-template #showForm>
+  <div class="std-content">
+    <h2>Apply and pledge</h2>
+  </div>
+  <ng-container *ngIf="profile">
+    <div class="profile-info clearfix">
+      <img *ngIf="profile.photoURL && profile.photoURL.length" [src]="profile.photoURL" class="thumb-profile" />
+      <p><span>{{profile.displayName}}</span><br>
+        <span>{{profile.email}}</span></p>
+    </div>
+    <div class="signout">
+      <button (click)="signOut()" class="btn btn-orange">Sign Out</button>
+    </div>
+  </ng-container>
+  <form *ngIf="pledgeForm != null && profile" [formGroup]="pledgeForm" (keydown.enter)="$event.preventDefault()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name="name" id="name" required formControlName="name" autocomplete="name" type="text" class="text text-medium"
+        aria-describedby="name-error">
+      <span id="name-error" class="error" *ngIf="shouldShowErrors('name')">Please enter your name</span>
+    </div>
+    <div class="form-group">
+      <label for="yearOfBirth">Year of birth</label>
+      <input type="text" class="text text-small" name="yearOfbirth" id="yearOfBirth" required formControlName="yearOfBirth"
+        pattern="^(19[0-9][0-9]|200[0-5])$" autocomplete="bday-year" aria-describedby="yearOfBirth-error">
+      <span id="yearOfBirth-error" class="error" *ngIf="shouldShowErrors('yearOfBirth')">Please a year between
+        1900-2005</span>
+    </div>
+    <div class="form-group" formGroupName="location">
+      <label for="location">Location</label>
+      <input type="text" class="text text-medium" name="location" required #location formControlName="description" id="location"
+        aria-describedby="location-error">
+      <span id="location-error" class="error" *ngIf="shouldShowErrors('location')">Please type and then select your
+        location from the list</span>
+    </div>
+    <div class="form-group">
+      <label>Meters pledged</label>
+      <div class="range-container">
+        <input name="pledge" type="range" step="100" min="100" max="42195" formControlName="pledge" class="range">
+      </div>
+      <input type="number" [ngModel]="this.pledgeForm.get('pledge').value" name="pledge" min="100" max="42195"
+        formControlName="pledge" class="text text-small range-number" />
+      <div class="miles">
+        = <span class="miles-number">{{(this.pledgeForm.get('pledge').value ? this.pledgeForm.get('pledge').value : 0)
+          / 1609.344 | number : '1.2-2'}}</span> Miles
+      </div>
+      <span id="location-error" class="error" *ngIf="shouldShowErrors('pledge')">You can pledge between 100 and 42195
+        meters.</span>
+    </div>
+    <button type="submit" (click)="submitPledge()" class="btn btn-green">Sign me up!</button>
+  </form>
+</ng-template>

@@ -8,5 +8,6 @@ export type PledgeForm = {
   readonly yearOfBirth: string,
   readonly pledge: number,
   readonly location: Location,
+  response?: string | { error: { msg: string, code?: number } },
 
 }

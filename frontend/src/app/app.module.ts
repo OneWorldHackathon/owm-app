@@ -11,6 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { PledgeFormComponent } from './components/pledge-form/pledge-form.component'
 
 import { GlobeComponent } from './globe/globe.component'
+import { ConfirmationComponent } from './components/confirmation/confirmation.component'
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component'
+import { AppRoutingModule } from './/app-routing.module'
+import { IndexComponent } from './pages/index/index.component'
+import { TermsComponent } from './pages/terms/terms.component'
 
 @NgModule({
   declarations: [
@@ -18,6 +23,10 @@ import { GlobeComponent } from './globe/globe.component'
     LoginComponent,
     PledgeFormComponent,
     GlobeComponent,
+    ConfirmationComponent,
+    PrivacyPolicyComponent,
+    IndexComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +39,7 @@ import { GlobeComponent } from './globe/globe.component'
       libraries: ['places'],
     }),
     AngularFireAuthModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

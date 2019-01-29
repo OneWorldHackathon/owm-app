@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 import { AuthService, ProviderProfile } from '@shared/services/auth.service'
+import { scrollToPledge } from '@shared/scrolltopledge'
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,6 @@ export class LoginComponent implements OnInit {
               private fb: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
-    await this.authService.checkSignInWithEmailLink()
     this.authService.getUser().subscribe(profile => {
       this.profile = profile
     })
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       await this.authService.signInWithEmail(emailControl.value)
       this.signInWithEmailLinkSentTo = emailControl.value
     }
+    scrollToPledge()
   }
 
   async signedIn(cred: firebase.auth.UserCredential): Promise<void> {

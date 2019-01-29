@@ -19,8 +19,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
+  	          "src/_redirects",
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/site.webmanifest",
+              "src/safari-pinned-tab.svg",
+              "src/mstile-70x70.png",
+              "src/mstile-144x144.png",
+              "src/mstile-150x150.png",
+              "src/mstile-310-150.png",
+              "src/mstile-310-310.png"
             ],
             "styles": [
               "src/styles.css"

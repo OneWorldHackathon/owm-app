@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  removeConsoleLogs: false,
   production: false,
   firebase: {
     apiKey: 'AIzaSyDD7Lul_yWYzF1jYBSuTJUgMQn4U09UrAI',
@@ -12,6 +13,7 @@ export const environment = {
     storageBucket: 'oneworldmarathon.appspot.com',
     messagingSenderId: '820477595207',
   },
+  signInWithEmail: 'http://localhost:4200/signInWithEmail',
 }
 
 /*

@@ -1,13 +1,100 @@
-<ng-container *ngIf="signedIn; then showPledgeForm; else showLoginForm"></ng-container>
-<ul *ngIf="totals !== undefined">
-  <li>{{totals.participants}} people</li>
-  <li>{{totals.distanceKm}} km pledged</li>
-  <li>in {{totals.countries.length}} countr{{totals.countries.length === 1 ? 'y' : 'ies'}}</li>
-</ul>
-<ng-template #showPledgeForm>
-  <app-pledge-form></app-pledge-form>
-</ng-template>
-<ng-template #showLoginForm>
-  <app-login></app-login>
-</ng-template>
-<app-globe></app-globe>
+<header id="header">
+    <div class="wrap-logo">
+        <img src="assets/img/logo-one-world-strong-2.svg" alt="One World Strong" class="logo-one-world-strong">
+    </div>
+    <nav>
+        <div class="donate">
+            <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="comp-j698gmttform" class="ppb0form donate-form">
+                    <input type="hidden" name="cmd" value="_donations" id="comp-j698gmttcmd" class="ppb0cmd">
+                    <input type="hidden" name="item_name" value="One World Strong" id="comp-j698gmttitem_name" class="ppb0item_name">
+                    <input type="hidden" name="item_number" value="" id="comp-j698gmttitem_number" class="ppb0item_number">
+                    <input type="hidden" name="bn" value="Wix_Donate_WPS_IL" id="comp-j698gmttbn" class="ppb0bn">
+                    <input type="hidden" name="business" value="dave@oneworldstrong.org" id="comp-j698gmttbusiness"
+                        class="ppb0business">
+                    <input type="hidden" name="currency_code" value="USD" id="comp-j698gmttcurrency_code" class="ppb0currency_code">
+                    <input type="hidden" name="notify_url" value="https://inventory.wix.com/ecommerce/ipn/paypal" id="comp-j698gmttnotify_url"
+                        class="ppb0notify_url">
+                    <input type="hidden" name="return" value="https://www.oneworldstrong.org" id="comp-j698gmttreturn"
+                        class="ppb0return">
+                    <input type="hidden" name="cancel_return" value="https://www.oneworldstrong.org" id="comp-j698gmttcancel_return"
+                        class="ppb0cancel_return">
+                    <input type="hidden" name="amount" id="comp-j698gmttamount" class="ppb0amount" value="">
+                    <button class="btn">Donate</button>
+                </form>-->
+            <a href="https://www.oneworldstrong.org/copy-of-our-impact" target="_blank" class="btn">Donate</a>
+        </div>
+        <ul class="desktop-menu">
+            <li><a href="/" class="active">Home</a></li>
+            <li><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></li>
+            <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></li>
+            <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></li>
+            <li><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></li>
+            <li><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></li>
+        </ul>
+
+        <div class="mobile-open">
+            <span class="mobile-icon"></span>
+        </div>
+
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></li>
+                <li><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<router-outlet></router-outlet>
+<section id="ticker" class="fix">
+    <div class="ticker-inner">
+        <div *ngIf="mostRecent10Pledges" class="ticker">
+            <div class="ticker-item" *ngFor="let pledge of mostRecent10Pledges">{{pledge}}</div>
+        </div>
+    </div>
+</section>
+<footer id="footer">
+    <div class="wrap-std">
+        <ul class="social clearfix">
+            <li><a target="_blank" href="https://www.facebook.com/1WSFoundation/"><img src="assets/img/icon-facebook.svg"
+                        alt="Facebook"></a></li>
+            <li><a target="_blank" href="https://twitter.com/1worldstronger"><img src="assets/img/icon-twitter.svg" alt="Twitter"></a></li>
+            <li><a target="_blank" href="http://www.instagram.com/1wsfoundation"><img src="assets/img/icon-instagram.svg"
+                        alt="Instagram"></a></li>
+        </ul>
+        <div class="columns clearfix">
+            <div class="column column-1">
+                <h4><a target="_blank" href="https://www.oneworldstrong.org/home">About</a></h4>
+                <ul>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-who-we-are-1">Mission</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-mission">Our story</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-mission">Board</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-who-we-are">What we do</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do-1">How we do it</a></li>
+                </ul>
+            </div>
+            <div class="column column-2">
+                <h4><a target="_blank" href="https://www.oneworldstrong.org/copy-of-what-we-do">Impact</a></h4>
+                <ul>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact-1">In the US</a></li>
+                    <li><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-work-in-orlando">Abroad</a></li>
+                </ul>
+            </div>
+            <div class="column column-3">
+                <h4><a target="_blank" href="https://www.oneworldstrong.org/copy-of-our-impact">Help us</a></h4>
+            </div>
+            <div class="column column-4">
+                <h4><a target="_blank" href="https://www.oneworldstrong.org/gallery">Gallery</a></h4>
+            </div>
+            <div class="column column-5">
+                <h4><a target="_blank" href="https://www.oneworldstrong.org/contact">Contact us</a></h4>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2019 - One World Strong Foundation
+        </div>
+    </div>
+</footer>

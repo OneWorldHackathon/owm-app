@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/auth'
-import { auth } from 'firebase'
+import { auth } from 'firebase/app'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
+import { environment } from 'environments/environment'
 
 export type ProviderProfile = {
   displayName: string | null,
@@ -19,7 +20,7 @@ export class AuthService {
   private readonly ACTION_CODE_SETTINGS: auth.ActionCodeSettings = {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be whitelisted in the Firebase Console.
-    url: 'http://localhost:4200/signInWithEmail',
+    url: environment.signInWithEmail,
       // This must be true.
     handleCodeInApp: true,
     // dynamicLinkDomain: 'localhost:4200',
@@ -52,14 +53,18 @@ export class AuthService {
   }
 
   async checkSignInWithEmailLink(): Promise<auth.UserCredential | null> {
-    if (this.auth.auth.isSignInWithEmailLink(window.location.href)) {
-      let email = window.localStorage.getItem('emailForSignIn')
-      if (!email) {
-        email = window.prompt('Please provide your email for confirmation')
+    try {
+      if (this.auth.auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn')
+        if (!email) {
+          email = window.prompt('Please provide your email for confirmation')
+        }
+        if (email) {
+          return this.auth.auth.signInWithEmailLink(email, window.location.href)
+        }
       }
-      if (email) {
-        return await this.auth.auth.signInWithEmailLink(email, window.location.href)
-      }
+    } catch (e) {
+      console.error('Sign in with email link', e)
     }
     return null
   }
@@ -71,6 +76,7 @@ export class AuthService {
   getUser(): Observable<ProviderProfile | null> {
     return this.auth.authState.pipe(map(user => {
       if (user != null) {
+        console.log('Got user', user)
         return {
           displayName: user.displayName,
           photoURL: user.photoURL,
@@ -80,5 +86,12 @@ export class AuthService {
       }
       return null
     }))
+  }
+
+  async getUserId(): Promise<string | null> {
+    return this.getUser().pipe(
+      take(1),
+      map(user => user ? user.userId : null),
+    ).toPromise()
   }
 }
