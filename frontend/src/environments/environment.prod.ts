@@ -1,4 +1,5 @@
 export const environment = {
+  removeConsoleLogs: true,
   production: true,
   firebase: {
     apiKey: 'AIzaSyDD7Lul_yWYzF1jYBSuTJUgMQn4U09UrAI',
