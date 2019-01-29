@@ -49,9 +49,11 @@
     </nav>
 </header>
 <router-outlet></router-outlet>
-<section id="ticker">
-    <div *ngIf="mostRecent10Pledges" class="ticker">
-        <div class="ticker-item" *ngFor="let pledge of mostRecent10Pledges">{{pledge}}</div>
+<section id="ticker" class="fix">
+    <div class="ticker-inner">
+        <div *ngIf="mostRecent10Pledges" class="ticker">
+            <div class="ticker-item" *ngFor="let pledge of mostRecent10Pledges">{{pledge}}</div>
+        </div>
     </div>
 </section>
 <footer id="footer">

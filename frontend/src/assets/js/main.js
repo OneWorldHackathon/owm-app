@@ -69,5 +69,18 @@ $(function(){
 
     $('#header, #splash').addClass('anim');
 
+    // READ MORE
+    $('.block p').on('click', function(){
+        var block = $(this).closest('.block');
+
+        if (!block.hasClass('.anim')){
+            block.find('p:nth-of-type(n+2)').each(function(){
+                var element = $(this);
+                element.animate({'max-height' : element[0].scrollHeight}, 200)
+            })
+
+            block.addClass('anim');
+        }
+    })
 
 });
