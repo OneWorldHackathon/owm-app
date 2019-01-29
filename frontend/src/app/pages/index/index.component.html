@@ -6,7 +6,7 @@
       <p class="wrap-std">The inaugural OWM global marathon 12-15th April 2019 – join us, run a little, care a
           lot</p>
   </div>
-  <div class="stats">
+  <div class="stats{{totals !== undefined ? ' anim' : ''}}">
       <ul *ngIf="totals !== undefined" class="clearfix wrap-std">
           <li class="stat stat-1">
               <h2>Participants</h2>
@@ -142,8 +142,36 @@
 </section>
 
 <section id="donate" class="wrap-std">
-  <div class="std-content">
-      <a href="https://www.oneworldstrong.org/copy-of-our-impact" target="_blank" class="btn">Donate</a>
-      <p>Individuals and organizations are invited to make donations to our organization via PayPal.</p>
-  </div>
+    <div class="box">
+        <div class="std-content donate-content">
+            <a href="https://www.oneworldstrong.org/copy-of-our-impact" target="_blank" class="btn">Donate</a>
+            <p>Individuals and organizations are invited to make donations to our organization via PayPal.</p>
+        </div>
+    </div>
+</section>
+
+<section id="partners" class="wrap-std">
+    <div class="std-content">
+        <div class="block">
+            <h2>One world partners</h2>
+            <p>A massive thanks goes out to all our partners that are contributing to the cause</p>
+        </div>
+    </div>
+
+    <div class="partner-grid">
+        <ul class="clearfix">
+            <li><a href="https://www.airbnb.co.uk" target="_blank"><img src="assets/img/logo-abnb.png" width="48" alt="AirBNB" /></a></li>
+            <li><a href="https://www.vibetickets.co.uk/" target="_blank"><img src="assets/img/logo-vibe.png" width="71" alt="Vibe" /></a></li>
+            <li><a href="https://www.hotfootdesign.co.uk/" target="_blank"><img src="assets/img/logo-hotfoot.png" width="85" alt="Hotfoot" /></a></li>
+            <li><a href="https://sourcepulp.consulting/" target="_blank"><img src="assets/img/logo-sourcepulp.png" width="134" alt="Sourcepulp" /></a></li>
+            <li><a href="https://www.lg.com/" target="_blank"><img src="assets/img/logo-lg.png" width="155" alt="LG" /></a></li>
+            <li><a href="https://www.robinzahler.com/" target="_blank"><img src="assets/img/logo-rz.png" width="164" alt="Robin Zahler" /></a></li>
+            <li><a href="http://www.cranford.hounslow.sch.uk/" target="_blank"><img src="assets/img/logo-cranford.png" width="140" alt="Cranford Community College" /></a></li>
+            <li><span><img src="assets/img/logo-mens-sana.png" width="82" alt="Mens Sana" /></span></li>
+            <li><a href="https://www.morganlewis.com/" target="_blank"><img src="assets/img/logo-morgan-lewis.png" width="107" alt="Morgan Lewis" /></a></li>
+            <li><a href="https://wolfonmoon.com/" target="_blank"><img src="assets/img/logo-wolf-on-the-moon.png" width="68" alt="Wolf on the Moon" /></a></li>
+            <li><a href="https://edventurepartners.com/" target="_blank"><img src="assets/img/logo-evp.png" width="66" alt="EdVenture Partners" /></a></li>
+            <li><a href="http://www.runjordan.com/" target="_blank"><img src="assets/img/logo-run-jordan.png" width="90" alt="Run Jordan" /></a></li>
+        </ul>
+    </div>
 </section>

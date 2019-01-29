@@ -1,6 +1,24 @@
 $(function(){
+    // CYCLE DELAY TIME
+    $.fn.cycleDelay = function(delayTime) {
+        var delay = 0,
+            element = $(this);
+
+        element.each(function(){
+            $(this).css({
+                '-webkit-transition-delay' : delay+'s, '+ delay +'s',
+                '-moz-transition-delay' : delay+'s, '+ delay +'s',
+                '-ms-transition-delay' : delay+'s, '+ delay +'s',
+                '-o-transition-delay' : delay+'s, '+ delay +'s',
+                'transition-delay' : delay+'s, '+ delay +'s'
+            });
+
+            delay = delay + delayTime;
+        })
+    };
+
     // MMENU
-    var mobileMenu = $('.mobile-menu')
+    var mobileMenu = $('.mobile-menu');
 
     mobileMenu.mmenu({
         counters: true,
@@ -14,9 +32,9 @@ $(function(){
                 fixed: 'fix'
             }
         }
-    })
+    });
 
-    var api = mobileMenu.data('mmenu')
+    var api = mobileMenu.data('mmenu');
 
     $('.mobile-open').click(function () {
         if ($('html').hasClass('mm-opened')) {
@@ -24,8 +42,9 @@ $(function(){
         } else {
             api.open()
         }
-    })
+    });
 
+    // GO TO PLEDGE
     $('.go-to-pledge').click(function (e){
         e.preventDefault();
 
@@ -34,6 +53,7 @@ $(function(){
         }, 2000);
     });
 
+    // RANGE
     $('.range').change(function() {
         var meters = $(this).val();
 
@@ -43,4 +63,11 @@ $(function(){
 
         $('.miles-number').text(miles.toFixed(1));
     });
-})
+
+    // ANIMS
+    $('#splash').find('.logo, .strap').cycleDelay(0.2);
+
+    $('#header, #splash').addClass('anim');
+
+
+});
