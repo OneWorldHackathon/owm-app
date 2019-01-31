@@ -5,6 +5,7 @@ import { differenceInDays } from 'date-fns'
 import { from } from 'rxjs'
 import { take, tap, flatMap } from 'rxjs/operators'
 import { scrollToPledge } from '@shared/scrolltopledge'
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-index',
@@ -44,5 +45,9 @@ export class IndexComponent implements OnInit {
         this.totals = totals
       }
     })
+
+    // todo some jquery,
+    // this function will be triggered when the index component gets initialised
+    $('div')
   }
 }
