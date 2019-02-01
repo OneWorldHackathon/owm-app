@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, AfterViewChecked } from '@angular/core'
 import { AuthService } from '@shared/services/auth.service'
 import { PledgeService, PublicView } from '@shared/services/pledge.service'
 import { differenceInDays } from 'date-fns'
@@ -11,11 +11,13 @@ import * as $ from 'jquery'
   selector: 'app-index',
   templateUrl: './index.component.html',
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, AfterViewChecked {
 
   public signedIn: boolean = false
   public totals: PublicView
   public daysUntil: number
+  public tickerInitd: boolean = false
+  public initTicker: boolean = false
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }
@@ -44,11 +46,17 @@ export class IndexComponent implements OnInit {
       if (totals !== undefined) {
         this.totals = totals
       }
+      console.log('BOUT OT TIN', window && !this.tickerInitd)
+      if (window && !this.tickerInitd) {
+        this.initTicker = true
+      }
     })
+  }
 
-    // todo some jquery,
-    // this function will be triggered when the index component gets initialised
-
-    initTicker();
+  ngAfterViewChecked(): void {
+    if (this.initTicker && !this.tickerInitd) {
+      window['initTicker']()
+      this.tickerInitd = true
+    }
   }
 }
