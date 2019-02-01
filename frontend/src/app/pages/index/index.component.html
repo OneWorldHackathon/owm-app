@@ -14,15 +14,15 @@
       <ul *ngIf="totals !== undefined" class="clearfix wrap-std">
           <li class="stat stat-1">
               <h2>Participants</h2>
-              <p>{{totals.participants}}</p>
+              <p class="ticker" attr.data-tick="{{totals.participants}}">0</p>
           </li>
           <li class="stat stat-2">
               <h2>Countries</h2>
-              <p>{{totals.countries.length}}</p>
+              <p class="ticker" attr.data-tick="{{totals.countries.length}}">0</p>
           </li>
           <li class="stat stat-3">
               <h2>Miles pledged</h2>
-              <p>{{totals.distanceMiles | number:'1.0-0'}}</p>
+              <p class="ticker" attr.data-tick="{{totals.distanceMiles | number:'1.0-0'}}">0</p>
           </li>
       </ul>
       <div class="pledge wrap-std">
@@ -83,7 +83,7 @@
 <section id="countdown">
   <div class="wrap-std">
       <p>
-          <span class="days">{{daysUntil}}</span>
+          <span class="days ticker" attr.data-tick="{{daysUntil}}">0</span>
           <span class="date">days until the event<br>
               12th – 15th April 2019</span>
       </p>
@@ -166,13 +166,15 @@
         <ul class="clearfix">
             <li><a href="https://www.airbnb.co.uk" target="_blank"><img src="assets/img/logo-abnb.png" width="48" alt="AirBNB" /></a></li>
             <li><a href="https://www.vibetickets.co.uk/" target="_blank"><img src="assets/img/logo-vibe.png" width="71" alt="Vibe" /></a></li>
+            <li><a href="https://www.newbalance.co.uk/" target="_blank"><img src="assets/img/logo-new-balance.png" width="78" alt="New Balance" /></a></li>
             <li><a href="https://www.hotfootdesign.co.uk/" target="_blank"><img src="assets/img/logo-hotfoot.png" width="85" alt="Hotfoot" /></a></li>
             <li><a href="https://sourcepulp.consulting/" target="_blank"><img src="assets/img/logo-sourcepulp.png" width="134" alt="Sourcepulp" /></a></li>
             <li><a href="https://www.lg.com/" target="_blank"><img src="assets/img/logo-lg.png" width="155" alt="LG" /></a></li>
             <li><a href="https://www.robinzahler.com/" target="_blank"><img src="assets/img/logo-rz.png" width="164" alt="Robin Zahler" /></a></li>
             <li><a href="http://www.cranford.hounslow.sch.uk/" target="_blank"><img src="assets/img/logo-cranford.png" width="140" alt="Cranford Community College" /></a></li>
+            <li><a href="https://www.morganlewis.com/" target="_blank"><img src="assets/img/logo-morgan-lewis.png" width="101" alt="Morgan Lewis" /></a></li>
             <li><span><img src="assets/img/logo-mens-sana.png" width="82" alt="Mens Sana" /></span></li>
-            <li><a href="https://www.morganlewis.com/" target="_blank"><img src="assets/img/logo-morgan-lewis.png" width="107" alt="Morgan Lewis" /></a></li>
+            <li><a href="https://www.morganlewis.com/" target="_blank"><img src="assets/img/logo-morgan-lewis-2.png" width="107" alt="Morgan Lewis" /></a></li>
             <li><a href="https://wolfonmoon.com/" target="_blank"><img src="assets/img/logo-wolf-on-the-moon.png" width="68" alt="Wolf on the Moon" /></a></li>
             <li><a href="https://edventurepartners.com/" target="_blank"><img src="assets/img/logo-evp.png" width="66" alt="EdVenture Partners" /></a></li>
             <li><a href="http://www.runjordan.com/" target="_blank"><img src="assets/img/logo-run-jordan.png" width="90" alt="Run Jordan" /></a></li>        </ul>

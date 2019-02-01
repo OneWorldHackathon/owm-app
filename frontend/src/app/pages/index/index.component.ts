@@ -48,6 +48,7 @@ export class IndexComponent implements OnInit {
 
     // todo some jquery,
     // this function will be triggered when the index component gets initialised
-    $('div')
+
+    initTicker();
   }
 }
