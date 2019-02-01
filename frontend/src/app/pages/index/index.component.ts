@@ -46,7 +46,6 @@ export class IndexComponent implements OnInit, AfterViewChecked {
       if (totals !== undefined) {
         this.totals = totals
       }
-      console.log('BOUT OT TIN', window && !this.tickerInitd)
       if (window && !this.tickerInitd) {
         this.initTicker = true
       }
