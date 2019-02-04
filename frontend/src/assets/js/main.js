@@ -88,7 +88,7 @@ function initTicker() {
 
     // WAYPOINT DECOUPLED
     var ticking = false;
-    var tickerElem = $('.ticker');
+    var tickerElem = $('.counter');
     var elem;
 
     $.fn.animateTicker = function(){
@@ -111,12 +111,8 @@ function initTicker() {
     }
 
     function ticker() {
-
-        console.log(tickerElem);
-
         tickerElem.each(function(){
             elem = $(this);
-
             if (elem.offset().top < window.pageYOffset + window.innerHeight - 100 && !elem.hasClass('anim')) {
                 elem.animateTicker();
             }

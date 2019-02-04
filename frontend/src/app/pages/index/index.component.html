@@ -14,15 +14,15 @@
       <ul *ngIf="totals !== undefined" class="clearfix wrap-std">
           <li class="stat stat-1">
               <h2>Participants</h2>
-              <p class="ticker" attr.data-tick="{{totals.participants}}">0</p>
+              <p class="counter" attr.data-tick="{{totals.participants}}">0</p>
           </li>
           <li class="stat stat-2">
               <h2>Countries</h2>
-              <p class="ticker" attr.data-tick="{{totals.countries.length}}">0</p>
+              <p class="counter" attr.data-tick="{{totals.countries.length}}">0</p>
           </li>
           <li class="stat stat-3">
               <h2>Miles pledged</h2>
-              <p class="ticker" attr.data-tick="{{totals.distanceMiles | number:'1.0-0'}}">0</p>
+              <p class="counter" attr.data-tick="{{totals.distanceMiles | number:'1.0-0'}}">0</p>
           </li>
       </ul>
       <div class="pledge wrap-std">
@@ -83,7 +83,7 @@
 <section id="countdown">
   <div class="wrap-std">
       <p>
-          <span class="days ticker" attr.data-tick="{{daysUntil}}">0</span>
+          <span class="days counter" attr.data-tick="{{daysUntil}}">0</span>
           <span class="date">days until the event<br>
               12th – 15th April 2019</span>
       </p>
