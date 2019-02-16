@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ɵConsole } from '@angular/core'
 import { AuthService } from '@shared/services/auth.service'
 import { PledgeService, PublicView } from '@shared/services/pledge.service'
 import { differenceInDays } from 'date-fns'
@@ -21,8 +21,11 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     const today = new Date()
-    const april12 = new Date(2019, 4, 12, 0, 0)
+    console.log(today)
+    const april12 = new Date('April 12, 2019')
+    console.log(april12)
     this.daysUntil = differenceInDays(april12, today)
+    console.log(this.daysUntil)
     if (this.daysUntil < 0) {
       this.daysUntil = 0
     }
