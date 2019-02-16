@@ -3582,6 +3582,16 @@ jasminewd2@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
 
+jquery.mmenu@7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/jquery.mmenu/-/jquery.mmenu-7.3.0.tgz#874906a7a171ef2b3b1132b3b496c9b9d9f08093"
+  integrity sha512-ayj653AB8EcRMgxhGA7n9kKQ3jb/vwMKnKsN01iS1dJlidYleUcDokUDBYfkIzvvWBXcf3p25QtjmQUvp35gjQ==
+
+jquery@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
+
 js-base64@^2.1.8:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.0.tgz#42255ba183ab67ce59a0dee640afdc00ab5ae93e"

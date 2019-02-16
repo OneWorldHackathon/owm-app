@@ -19,7 +19,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-  	          "src/_redirects",
+              "src/_redirects",
               "src/favicon.ico",
               "src/assets",
               "src/site.webmanifest",
@@ -34,8 +34,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "../node_modules/jquery/dist/jquery.min.js",
-              "../node_modules/jquery.mmenu/dist/jquery.mmenu.all.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery.mmenu/dist/jquery.mmenu.all.js",
               "src/assets/js/main.js"
             ]
           },
