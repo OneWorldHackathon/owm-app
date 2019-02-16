@@ -1,20 +1,23 @@
-import { Component, OnInit, ɵConsole } from '@angular/core'
+import { Component, OnInit, AfterViewChecked } from '@angular/core'
 import { AuthService } from '@shared/services/auth.service'
 import { PledgeService, PublicView } from '@shared/services/pledge.service'
 import { differenceInDays } from 'date-fns'
 import { from } from 'rxjs'
 import { take, tap, flatMap } from 'rxjs/operators'
 import { scrollToPledge } from '@shared/scrolltopledge'
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, AfterViewChecked {
 
   public signedIn: boolean = false
   public totals: PublicView
   public daysUntil: number
+  public tickerInitd: boolean = false
+  public initTicker: boolean = false
 
   constructor(private authService: AuthService, private pledgeService: PledgeService) {
   }
@@ -46,6 +49,16 @@ export class IndexComponent implements OnInit {
       if (totals !== undefined) {
         this.totals = totals
       }
+      if (window && !this.tickerInitd) {
+        this.initTicker = true
+      }
     })
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.initTicker && !this.tickerInitd) {
+      window['initTicker']()
+      this.tickerInitd = true
+    }
   }
 }

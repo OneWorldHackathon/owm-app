@@ -195,7 +195,7 @@ body { background: #FFF url("../img/bg-body.svg") right top no-repeat; color: #5
 #splash .logo-strap img { display: inline-block; vertical-align: bottom; margin-right: 14px; }
 #splash .strap { text-align: center; color: #009A00; padding-top: 42px }
 #splash .stats { position: absolute; width: 100%; bottom: 0; background: #71BB44; }
-#splash .stats { opacity: 0; -webkit-transform: translateY(100%); -moz-transform: translateY(100%); -ms-transform: translateY(100%); -o-transform: translateY(100%); transform: translateY(100%); }
+#splash .stats { opacity: 0; }
 #splash .logo, #splash .strap { opacity: 0; -webkit-transform: translateY(100px); -moz-transform: translateY(100px); -ms-transform: translateY(100px); -o-transform: translateY(100px); transform: translateY(100px); }
 #splash .stats.anim, #splash.anim .logo, #splash.anim .strap { opacity: 1; -webkit-transform: translateY(0); -moz-transform: translateY(0); -ms-transform: translateY(0); -o-transform: translateY(0); transform: translateY(0); }
 #splash .stats ul { text-align: center; padding: 25px 0 50px; color: #FFF; border-bottom: 1px solid rgba(255,255,255,0.3); }
